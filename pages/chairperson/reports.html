@@ -2,34 +2,88 @@
 <html>
     <head>
         <title>Chairperson - Reports</title> 
-        <link rel="stylesheet" href="reports.css">
+        <link rel="stylesheet" href="../../static/css/reports.css">
+        <!-- <link href="https://cdnfonts.com" rel="stylesheet"> -->
+
     </head>
     <body>
         <div class="container">
             <aside class="sidebar">
-                <ul>
-                    <li>Dashboard</li>
-                    <li>Members</li>
-                    <li>Loans</li>
-                    <li>Transactions</li>
-                    <li>View Reports</li>
-                    <li>Kaya</li>
-                    <li>Kaya</li>
-                    <li>Kaya</li>
-                </ul>
+                <h2>Village Bank</h2>                
+
+                <nav>
+                    <ul>
+                        <li>Dashboard</li>
+                        <li>Members</li>
+                        <li>Loans</li>
+                        <li>Transactions</li>
+                        <li>View Reports</li>
+                        <li>Kaya</li>
+                        <li>Kaya</li>
+                        <li>Kaya</li>
+                    </ul>
+                </nav>
             </aside>
 
-            <main>
+            <main class="main-content">
                 <header class="topbar">
-                    <button>☰</button>
-                    <div>Profiles</div>
+                    <button class="menu">Menu</button>
+
+                    <div class="profile">
+                        <span>Profile</span>
+                        <div class="avatar"></div>
+                    </div>
                 </header>
 
                 <section class="dashboard">
-                    Dashboard content
+                    <div class="cards">
+
+                        <div class="card">
+                            <h3>Total Members</h3>
+                            <p>120</p>
+                        </div>
+
+                        <div class="card">
+                            <h3>Active Loans</h3>
+                            <p>45</p>
+                        </div>
+
+                        <div class="card">
+                            <h3>Total Savings</h3>
+                            <p>MWK 2,500,000</p>
+                        </div>
+
+                        <div class="card">
+                            <h3>Transactions</h3>
+                            <p>320</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="analytics">
+                        <div class="chart-card">
+                            <canvas id="financeChart"></canvas>
+                        </div>
+                    </div>
                 </section>
             </main>
         </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            const ctx = document.getElementById("financeChart");
+
+            new Chart(ctx, {
+                type: "pie",
+                data: {
+                    labels: ["savings", "Loans", "Repayments"],
+                    datasets: [{
+                        data: [500000, 300000, 200000]
+                    }]
+                }
+            });
+        </script>
     </body>
 </html>
 
