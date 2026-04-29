@@ -252,9 +252,7 @@ font-weight:bold;
 </style>
 </head>
 <body>
-    <div class="page-title">
-        <!-- to be filled by javascript-->
-    </div> 
+    
     <!--sidebar-->
     <nav class="sidebar">
         <div class="logo">
