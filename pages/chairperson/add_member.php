@@ -172,7 +172,40 @@ accent-color: rgb(4,99,37);
 </div> </div>
 </form>
 <?php
+$host = 'localhost';
+$user = 'root';
+$password = '';
+$dbname = 'village_bank';
+$conn= new mysqli ($host,$user,$password,$dbname) //establishing a connection 
 
+$first_name=$_POST['fname'];
+$last_name=$_POST['lname'];
+$gender=$_POST['gender'];
+$dateofbirth=$_POST['dob'];
+$nationalid=$_POST['id'];
+$phonenumber=$_POST['phonenumber'];
+$othernumber=$_POST['othernumber'];
+$email=$_POST['email'];
+$physicaladdress=$_POST['address'];
+$fullname=$_POST['fullname'];
+$relationship=$_POST['relationship'];
+$noknumber=$_POST['pnumber'];
+$occupation=$_POST['occupation'];
+$income=$_POST['income'];
+$accnumber=$_POST['accountnumber'];
+$physicaladdress=$_POST['address'];
+$physicaladdress=$_POST['address'];
+
+$sql = "INSERT INTO members(firstname,lastname,phone,location,next_of_kin,gender)
+VALUES ('$first_name','$last_name','$phonenumber','$physicaladdress','$noknumber','$gender')";
+
+if($conn->query($sql)==TRUE){
+    echo "Member added successfullly";
+} else{
+    echo "Error".$conn->error; 
+}
+
+$conn->close();
 ?>
 </body>
 </html>
