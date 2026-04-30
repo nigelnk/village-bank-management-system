@@ -296,8 +296,8 @@ font-weight:bold;
             <div class="gold-line"></div> 
         </div>
     </div>
-</div>
 
+         
 <!--transactions table-->
 <div class="table-box">
     <table>
@@ -363,6 +363,7 @@ MK <?php echo number_format($balances[$member]); ?>
 <?php } ?>
 
     </table>
+</div>
 </div>
 </body>
 </html>
