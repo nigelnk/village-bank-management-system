@@ -1,0 +1,144 @@
+body{
+    overflow: hidden;
+}
+.container{
+margin: 0px;
+width: 100%;
+height: fit-content;
+display: flex;
+flex-direction: column;
+align-items: center;
+/* border: solid 2px;   */
+background-color: beige;
+
+}
+.title{
+    font-family: 'Courier New';
+    font-size: 30px;
+    font-weight: 900;
+    margin-top: 20px;
+    text-align: center;
+    color: rgb(227, 7, 7);
+}
+.subtitle img{
+margin-left: 20%;
+    margin-top: 0%;
+    width: 80px;
+border: solid 2px gray;
+border-radius: 7px;
+
+}
+
+.form{
+    border: solid 3px;
+    border-color: aqua;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    padding: 40px;
+    margin-bottom: 40px;
+    width: 30%;
+    box-shadow: 0 4px 8px blueviolet;
+}
+.username input{
+
+    border: solid 2px;
+    border-color:  rgb(244, 243, 243);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    align-items: center;
+    height: 30px;
+    width: 100%;
+}
+.pass input{
+    
+    border: solid 2px;
+    border-color: rgb(242, 242, 242);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    align-items: center;
+    height: 30px;
+    width: 100%;
+}
+.login input{
+    
+    border: solid 2px;
+    border-color:none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    align-items: center;
+    height: 30px;
+    width: 50%;
+    background-color: rgb(30, 30, 229);
+    color: white;
+    font-weight: 700;
+    margin-left: 25%;
+}
+
+input{
+    border: solid 2px;
+    border-radius: 7px;
+    border-color: rgb(75, 75, 127);
+    margin-top: 10px;
+    /* min-height: 20px; */
+     margin-bottom: 5px;
+    margin-right: 10px;
+    width: 100;
+    background-color: bisque;
+    /* padding-left: 20px; */
+
+}
+.form{
+    border: none;
+    border-radius: 5px;
+    
+    background-color:white;
+}
+
+.create button{
+    background-color: green;
+    height: 30px;
+    text-align: center;
+    margin-top: 5px;
+    margin-left: 50px;
+    margin-right: 50px;
+    border-radius: 7px;
+}
+.forgotpas button{
+/* margin-top: 10px; */
+ background-color: blue;
+padding-left: 20px;
+margin-left: 50px;
+margin-right: 50px;
+/* border-radius: 5px; */
+text-decoration: none;
+all: unset;
+cursor: pointer;
+}
+.create button{
+all: unset;
+cursor: pointer;
+/* background-color: #06fd06; */
+margin-left: 50px;
+height: 30px;
+border-radius: 5px;
+/* margin-top: 10px; */
+}
+/* .or{
+    text-align: center;
+    margin-top: 20px;
+} */
+.create button:hover{
+    background-color: rgb(225, 202, 202);
+ }
+ .support{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    /* background-color: black; */
+    margin-top: 5px;
+ }
+ .forgotpas:hover{
+    background-color: rgb(225, 202, 202);
+ }
