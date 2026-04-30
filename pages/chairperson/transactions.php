@@ -2,23 +2,29 @@
 //Summary cards queries
 include("db_setup.php");
 
+require_once '../../utils/config.php';
+
+$conn = get_db();
+
 $savingsQuery="SELECT COALESCE(SUM(AMOUNT), 0) as total_savings FROM transactions WHERE TYPE='deposit' ";
 $savingsResult = $conn -> query( $savingsQuery);
 $totalSavings = $savingsResult -> fetch_assoc()['total_savings'];
 
 //outstanding loans =   loans issued(out) - repayments(in)
-$loanQuery = "SELECT COALESCE(SUM (CASE WHEN TYPE='loan' AND DIRECTION='OUT' THEN amount ELSE 0 END), 0) 
+$loanQuery = "SELECT 
+COALESCE(SUM(CASE WHEN TYPE='loan' AND DIRECTION='OUT' THEN amount ELSE 0 END), 0) 
 -
-SELECT COALESCE(SUM (CASE WHEN TYPE='loan' AND DIRECTION='IN' THEN amount ELSE 0 END), 0 )
-AS outstanding_loans FROM transactions";
+COALESCE(SUM(CASE WHEN TYPE='loan' AND DIRECTION='IN' THEN amount ELSE 0 END), 0)
+AS outstanding_loans 
+FROM transactions";
 
-$loanResult = conn -> query($loanQuery);
+$loanResult = $conn->query($loanQuery);
 $outstandingLoans = $loanResult -> fetch_assoc()['outstanding_loans'];
 
 //deposits for the month
 $monthQuery = "SELECT COALESCE(SUM(amount), 0) AS month_deposits FROM transactions WHERE type='deposit' AND MONTH(transaction_date) = MONTH(CURDATE()) AND YEAR(transaction_date) = YEAR(CURDATE())";
 $monthResult = $conn -> query($monthQuery);
-$monthlyDeposits = $monthResult -> fetch_assoc()['monthlyDeposits'];
+$monthlyDeposits = $monthResult -> fetch_assoc()['month_deposits'];
 
 //fetching transactions
 $sql = "SELECT * FROM transactions ORDER BY transaction_date DESC";
@@ -27,8 +33,6 @@ $result = $conn -> query($sql);
 $balances=[];
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html>
@@ -264,7 +268,7 @@ font-weight:bold;
             <li><a href="#">Members</a></li>
             <li><a href="#">Loans</a></li> 
             <li><a href="#">Transactions</a></li>
-            <li><a href="#">View Reports</a><li>
+            <li><a href="#">View Reports</a></li>
             <li><a href="#">Profile</a></li>
         </ul>
          <a href="" id="add-member-btn">+ Add Member</a>
@@ -274,21 +278,21 @@ font-weight:bold;
 <div class="main">
     <div class="page-title"> <h1>Transactions </h1></div>
 
-    //cards
+    <!--cards-->
     <div class="cards">
         <div class="card money-card">
             <h3>Total member savings</h3>
-            <h2>MK<?php echo number_format($total_savings); ?></h2> 
+            <h2>MK<?php echo number_format($totalSavings); ?></h2> 
             <div class="gold-line"></div>
         </div>
         <div class="card">
             <h3> Outstanding Loans</h3>
-            <h2><?php echo number_format($outstandingLoans);?></h2>
+            <h2>MK<?php echo number_format($outstandingLoans);?></h2>
             <div class="gold-line"></div>
         </div>
         <div class="card">
             <h3> Deposits this month</h3>
-            <h2><?php echo number_format($monthlyDeposits);?>
+            <h2>MK<?php echo number_format($monthlyDeposits);?></h2>
             <div class="gold-line"></div> 
         </div>
     </div>
@@ -302,9 +306,10 @@ font-weight:bold;
             <th>Type</th>
             <th>Direction</th>
             <th>Amount</th>
-            <th>Savings Balanve</th>
+            <th>Savings Balance</th>
             <th>Date</th>
         </tr>
+
 <?php
  while($row=$result->fetch_assoc()){
 
@@ -316,7 +321,8 @@ $balances[$member]=0;
 
 if($row['type']=="deposit"){
 $balances[$member]+=$row['amount'];
-}?>
+}
+?>
 
 <tr>
 <td>
@@ -353,6 +359,8 @@ MK <?php echo number_format($balances[$member]); ?>
 </td>
 
 </tr>
+
+<?php } ?>
 
     </table>
 </div>
