@@ -49,7 +49,7 @@ It allows administrators to track members, savings, loans, and transactions in a
 1. Clone the repository:
 
 ```
-git clone https://github.com/your-username/village-bank-management-system.git
+git clone https://github.com/NigelNk/village-bank-management-system.git
 ```
 
 2. Move the project to your server directory:
