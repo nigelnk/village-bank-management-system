@@ -1,8 +1,5 @@
-# Village Bank Management System
 
-## Overview
-
-This project is a web based Village Bank Management System designed to help small community savings groups manage their financial activities efficiently.
+This is a group six web based Village Bank Management System project given as final project for Web Development module.
 
 It allows administrators to track members, savings, loans, and transactions in a simple and organized way.
 
@@ -10,34 +7,34 @@ It allows administrators to track members, savings, loans, and transactions in a
 
 ## Features
 
-* Member registration and management
-* User authentication (login/logout, password resets/password changes)
-* Savings tracking
-* Loan management
-* Transaction history
-* Dashboard with summary statistics
+- Member registration and management
+- User authentication (login/logout, password resets/password changes)
+- Savings tracking
+- Loan management
+- Transaction history
+- Dashboard with summary statistics
 
 ---
 
 ## Technologies Used
 
-* PHP (Core PHP)
-* MySQL (Database)
-* HTML, CSS
-* JavaScrip
+- PHP (Core PHP)
+- MySQL
+- HTML
+- CSS
+- JavaScript
 
 ---
 
 ## Project Structure
 
-```
+```text
 /project-root
 │── /auth
 │── /pages
 │── layout.php
 │── index.php
 │── /utils
-│── includes
 │── /includes
 │── /statics
 ```
@@ -46,44 +43,88 @@ It allows administrators to track members, savings, loans, and transactions in a
 
 ## Installation & Setup
 
-1. Clone the repository:
+### 1. Clone the Repository
 
-```
+```bash
 git clone https://github.com/NigelNk/village-bank-management-system.git
 ```
 
-2. Move the project to your server directory:
+### 2. Move the Project to Your Server Directory
 
-* For XAMPP: `htdocs/`
-* For WAMP: `www/`
+- XAMPP → `htdocs/`
+- WAMP → `www/`
 
-3. Create a database:
+### 3. Create Database
 
-* Open phpMyAdmin
-* Create a database (e.g. `village_bank`)
+Open phpMyAdmin and create:
 
-4. Import the SQL file:
-
-* Import `database.sql` into your database
-
-5. Configure database connection:
-
-* Open `config.php`
-* Update:
-
-```
-$host = 'localhost';
-$user = 'root';
-$password = '';
-$dbname = 'village_bank';
+```sql
+village_bank
 ```
 
-6. Run the project:
+### 4. Configure Database Connection
 
-* Open browser
-* Go to:
+Inside the `utils` folder, create a file named:
 
+```php
+config.php
 ```
-http://localhost/village-bank-system
+
+This file is not included in the repository because it contains sensitive information such as:
+
+- Database username
+- Password
+- Database name
+- Server credentials
+
+Use the following code inside `config.php`:
+
+```php
+<?php
+
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root'); // replace this with your servername otherwise leave it like that for wamp/xamp
+define('DB_PASS', ''); // replace '' with your actual db password otherwise leave it like that especially for xamp/wamp
+define('DB_NAME', 'village_bank');
+
+function get_server_db()
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS);
+
+    if ($conn->connect_error) {
+        die("Server connection failed: " . $conn->connect_error);
+    }
+
+    return $conn;
+}
+
+function get_db()
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+
+    if ($conn->connect_error) {
+        die("Database connection failed: " . $conn->connect_error);
+    }
+
+    return $conn;
+}
+?>
 ```
 
+### 5. Run the Project
+
+```text
+http://localhost/village-bank-management-system
+```
+
+---
+
+## Security Note
+
+Do not upload your real `config.php` file to GitHub.
+
+Add this to `.gitignore`:
+
+```gitignore
+/utils/config.php
+```
