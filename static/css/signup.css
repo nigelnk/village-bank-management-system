@@ -1,0 +1,171 @@
+body{
+    overflow: hidden;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    background-color:rgb(237, 232, 232);
+    margin-top: 0px;
+    height:fit-content;
+    margin-bottom: 10px;
+}
+.head h2{
+    text-align: center;
+    margin-bottom: 40px;
+    font-family: sans-serif;
+    font-size: 40px;
+    font-weight: 600;
+    color: rgb(36, 23, 227);
+  /* margin-left: 20px; */
+
+}
+.head{
+    margin-top: 10px;
+}
+.form{
+    border: none; 
+    padding-left: 40px;
+    /* padding-top: 20px; */
+    border-radius: 8px;
+    align-self:center ;
+    margin-top:none;
+    padding-right: 40px;
+    min-height: auto;
+    margin-bottom: 10px;
+    background-color: azure;
+    box-shadow: 0  4px 8px rgb(239, 115, 115)
+}
+.firstname input{
+    border-radius: 8px;
+    height: 25px;
+    margin-top: 6px;
+    margin-bottom: 12px;
+    margin-right: 10px;
+    width: 200px;   
+}
+.firstname{
+    padding-top: 10px;
+}
+.firstname label{
+    font-weight: 700;
+    font-size: 17px;
+    margin-right: 15px;
+}
+.lastname input{
+    border-radius: 8px;
+    height: 25px;
+    margin-top: 6px;
+    margin-bottom: 12px;
+    margin-right: 10px;
+    width: 200px;
+}
+.lastname label{
+    font-weight: 700;
+    font-size: 17px;
+    margin-right: 15px; 
+}
+.phone label{
+    font-weight: 700;  
+    margin-bottom: 40px;
+    font-size: 17px;
+
+}
+.gender {
+    font-weight: 700;  
+    margin-bottom : 10px;
+    font-size: 17px;
+}
+.phone input{
+    border-radius: 8px;
+    height: 25px;
+    margin-top: 6px;
+    margin-bottom: 12px;
+    margin-right: 10px;
+    width: 200px;
+}
+/* .home label{
+    border-radius: 8px; 
+    height: 25px; 
+    margin-top: 6px;
+    margin-bottom: 12px;
+        margin-right: 10px;
+    }  */
+
+.location input{
+    border-radius: 8px;
+    height: 25px;
+    margin-top: 6px;
+    margin-bottom: 12px;
+    margin-right: 10px;
+    width: 180px; 
+    margin-left: 10px;
+}
+.location label{
+    font-weight: 700;
+    font-size: 17px;
+    margin-right: 15px; 
+}
+.next-kin{
+    display: flex;
+    flex-direction: row;
+}
+.next-kin input{
+    border-radius: 8px;
+    height: 25px;
+    margin-top: 6px;
+    margin-bottom: 12px;
+    margin-right: 10px;
+    width: 200px;
+    margin-left: 10px;
+}
+.next-kin label{
+    font-weight: 700;
+    font-size: 17px;
+    margin-right: 15px;  
+}
+.status input{
+    border-radius: 8px;
+    height: 25px;
+    margin-top: 6px;
+    margin-bottom: 12px;
+    margin-right: 10px;
+    width: 200px;
+    margin-left: 30px;
+}
+.status label{
+    font-weight: 700;
+    font-size: 17px;
+    margin-right: 40px;   
+}
+.Joined_date label{
+    font-weight: 700;
+    font-size: 17px;
+    margin-right: 15px;    
+}
+.Joined_date input{
+    border-radius: 8px;
+    height: 25px;
+    margin-top: 6px;
+    margin-bottom: 12px;
+    margin-right: 10px;
+    width:150px;  
+    margin-left: 15px;
+}
+.submit_cancel{
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 10px;
+    gap: 200px;
+}
+.submit_cancel input[type="submit"]{
+    background-color: green;
+    border-radius: 5px;
+        color: white;
+    font-weight: 600;
+}   
+.submit_cancel input[type="reset"]{
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+    font-weight: 600;
+}
