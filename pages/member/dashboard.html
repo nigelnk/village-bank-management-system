@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head> 
+        <title>Member page </title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <link rel="stylesheet" href="../../static/css/member_page.css">
+    </head>
+<body>
+    <div class="container">
+        <header class="topbar">
+            <div>
+                <div class="welcome">
+                    Welcome, {User} <br>
+                    <p id="user_id">User id #1122</p>
+                </div>
+            </div>
+
+            <div>
+                <span class="notifications">
+                    Noti
+                </span>
+                
+                <button class="logout">
+                    Logout
+                </button>
+            </div>
+        </header>
+
+        <main class="dashboard">
+            <section class="reports-section">
+                <div class="card">
+                    <h5>Total Savings</h5>
+                    MWK 100,000
+                </div>
+                <div class="card">
+                    <h6>Loan Balance</h5>
+                    MWK 100,000
+                </div>
+                <div class="card">
+                    <h5>Available credit</h5>
+                    MWK 100,000
+                </div>
+            </section>
+
+            <section class="transaction-history-section">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>DATE</th>
+                            <th>TYPE</th>
+                            <th>AMOUNT</th>
+                            <th>BALANCE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2026-02-28</td>
+                            <td>Deposit</td>
+                            <td>K2,500</td>
+                            <td>K2,500</td>
+                        </tr>
+                        <tr>
+                            <td>2027-12-28</td>
+                            <td>Borrowed</td>
+                            <td>K1,000</td>
+                            <td>K1,500</td>
+                        </tr>
+                        <tr>
+                            <td>2026-02-28</td>
+                            <td>Deposit</td>
+                            <td>K2,500</td>
+                            <td>K2,500</td>
+                        </tr>
+                        <tr>
+                            <td>2027-12-28</td>
+                            <td>Borrowed</td>
+                            <td>K1,000</td>
+                            <td>K1,500</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>     
+    </div>
+</body>
+</html>
