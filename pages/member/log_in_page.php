@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 $conn = new mysqli("localhost", "root", "", "village_bank");
 
@@ -20,16 +19,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
+
         $user = $result->fetch_assoc();
 
         // Verify hashed password
         if (password_verify($password, $user['password'])) {
 
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
-
             echo "<script>alert('Login successful');</script>";
-            // You can redirect:
+            // Optional redirect:
             // header("Location: dashboard.php");
 
         } else {
@@ -44,4 +41,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 $conn->close();
+
 ?>
