@@ -29,9 +29,9 @@ CREATE TABLE IF NOT EXISTS members (
     lastname VARCHAR(30) NOT NULL,
     phone BIGINT,
     location TEXT,
-    next_of_kin BIGINT,
+    next_of_kin VARCHAR(30),
     gender VARCHAR(8),
-    status TEXT,
+    status VARCHAR(10),
     joined_date DATE,
     updated_at DATE
 )");
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS users (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     member_id BIGINT,
     role_id BIGINT,
-    created_at BIGINT,
+    created_at DATE
     username VARCHAR(30) UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
 
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS savings (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     member_id BIGINT UNIQUE,
     total_shares BIGINT,
-    updated_at BIGINT,
+    updated_at DATE,
 
     FOREIGN KEY (member_id) REFERENCES members(member_id)
 )");
