@@ -1,74 +1,56 @@
 <?php
 // =============================================
-// connect to database dont know which method is being used
+// connect to database
 // =============================================
-require_once __DIR__ . '/config/config.php';   // always works, even if moved
-$conn = get_db();   // returns MySQLi connection to 'village_bank'
-
+require_once __DIR__ . '/../../utils/config.php';
+$conn = get_db();
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-//turned off log in functionality since there is no page yet
 
-/* Verify user is logged in and is Chairperson (exact case from roles table)
+// Login check temporarily disabled
+/*
 if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'Chairperson') {
     header('Location: login.php');
     exit;
-}*/
-
+}
+*/
 
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
     if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
         die("Invalid CSRF token");
     }
-
-    $loan_id = (int)$_POST['loan_id'];  // ensure integer
-
+    $loan_id = (int)$_POST['loan_id'];
     if (isset($_POST['approve'])) {
-        // Update loan status to 'active' (or your chosen approved status)
         $stmt = $conn->prepare("UPDATE loans SET status = 'active' WHERE id = ? AND status = 'pending'");
         $stmt->bind_param("i", $loan_id);
         $stmt->execute();
-        // Optionally insert a transaction record for loan disbursement
-    } 
-    elseif (isset($_POST['reject'])) {
-        // Update loan status to 'rejected'
+    } elseif (isset($_POST['reject'])) {
         $stmt = $conn->prepare("UPDATE loans SET status = 'rejected' WHERE id = ? AND status = 'pending'");
         $stmt->bind_param("i", $loan_id);
         $stmt->execute();
     }
-
-    // Redirect to avoid form resubmission
     header("Location: chairperson.php");
     exit;
 }
 
-
-//  Dashboard statistics (using correct column names)
-
 $membersResult = $conn->query("SELECT COUNT(*) as total FROM members");
 $members = $membersResult->fetch_assoc()['total'] ?? 0;
 
-// Pending loans (status = 'pending')
 $pendingResult = $conn->query("SELECT COUNT(*) as total FROM loans WHERE status = 'pending'");
 $pending = $pendingResult->fetch_assoc()['total'] ?? 0;
 
-// Total savings = sum of total_shares from savings table
 $savingsResult = $conn->query("SELECT SUM(total_shares) as total FROM savings");
 $savings = $savingsResult->fetch_assoc()['total'] ?? 0;
 
-// Defaulters (members with status = 'defaulter')
 $defaultersResult = $conn->query("SELECT COUNT(*) as total FROM members WHERE status = 'defaulter'");
 $defaulters = $defaultersResult->fetch_assoc()['total'] ?? 0;
 
-// Pending loan details – join members to get full name
 $loanRows = $conn->query("
     SELECT l.id, 
            CONCAT(m.firstname, ' ', m.lastname) AS member_name, 
@@ -78,37 +60,27 @@ $loanRows = $conn->query("
     WHERE l.status = 'pending'
 ");
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Chairperson Dashboard</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin:0; }
-        header { background:#2c3e50; color:white; padding:15px; display:flex; justify-content:space-between; }
-        .wrap { display:flex; }
-        .side { width:200px; background:#34495e; padding:15px; }
-        .side a { display:block; color:white; padding:10px; text-decoration:none; }
-        .main { flex:1; padding:20px; }
-        .cards { display:flex; gap:20px; margin-bottom:30px; flex-wrap:wrap; }
-        .card { background:#ecf0f1; padding:15px; border-radius:5px; width:calc(25% - 20px); min-width:150px; }
-        table { width:100%; border-collapse:collapse; }
-        th, td { border:1px solid #ddd; padding:8px; text-align:left; }
-        .approve { background:green; color:white; border:none; padding:5px 10px; cursor:pointer; }
-        .reject { background:red; color:white; border:none; padding:5px 10px; cursor:pointer; }
-        .muted { color:#7f8c8d; text-align:center; }
-    </style>
+     <link rel="stylesheet" href="../../static/css/chairperson.css">
     <script>
         function confirmAction(msg) {
             return confirm(msg);
         }
     </script>
+</head>
+<body>
+
 <header>
-    <div><strong>Village Bank</strong> - Chairperson Dashboard</div>
+    <div><strong>Village Bank</strong> - Chairperson Dashboard</div><br>
     <div>Welcome <?php echo htmlspecialchars($_SESSION['username'] ?? 'Guest'); ?> | 
          <a style='color:#fff' href='logout.php'>Logout</a>
     </div>
-</header>>
+</header>  
+<hr class= "short-line">
+
 <div class='wrap'>
     <nav class='side'>
         <a href='#'>Dashboard</a>
@@ -117,7 +89,6 @@ $loanRows = $conn->query("
         <a href='#reports'>Reports</a>
     </nav>
     <main class='main'>
-        <!-- Statistics Cards -->
         <div class='cards'>
             <div class='card'><h3>Total Members</h3><p><?php echo (int)$members; ?></p></div>
             <div class='card'><h3>Pending Loans</h3><p><?php echo (int)$pending; ?></p></div>
@@ -125,16 +96,12 @@ $loanRows = $conn->query("
             <div class='card'><h3>Defaulters</h3><p><?php echo (int)$defaulters; ?></p></div>
         </div>
 
-        <!-- Pending Loans Table -->
         <section id='loans'>
             <h2>Pending Loan Requests</h2>
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Member</th>
-                        <th>Amount (MWK)</th>
-                        <th>Action</th>
+                        <th>ID</th><th>Member</th><th>Amount (MWK)</th><th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -168,5 +135,6 @@ $loanRows = $conn->query("
         </section>
     </main>
 </div>
+
 </body>
 </html>
