@@ -2,73 +2,141 @@
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
+    /* removes the default styling that comes with most tags */
 }
 
 body{
     height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #eef1f5;
 }
 
+/* CONTAINER */
 .container{
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
+    align-items: center; /* centers dashboard horizontally */
 }
 
+/* TOPBAR */
 .topbar {
-    /* border: 1px solid black; */
-    height: 50px;
+    width: 100%;
+    height: 60px;
     display: flex;
-    justify-content: space-between;
-    padding: 9px;
-    box-shadow: 6px 6px 6px 13px black;
-    border-bottom: 1px solid gray;
+    justify-content: space-between; /* puts the divs on opposite sides of the screen i.e. ya welcom ndi ya logout */
+    align-items: center; /* centers the divs vertically */
+    padding: 0 24px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* box shadow instead of a solid border... looks better */
+    border-bottom: 1px solid #e0e0e0;
 }
 
+.welcome {
+    font-weight: 500; /* bold */
+}
+
+#user_id {
+    font-size: 12px;
+    color: gray;
+}
+
+/* DASHBOARD */
 .dashboard {
+    width: 75vw; /* 75% of the view width (page width).... Everything closer to the center */
+    max-width: 1100px;
+    margin-top: 30px;
     flex: 1;
-    background: #f5f6fa;
-    padding: 24px;
-    /* max-width: 80%; */
-    /* border: 1px solid black; */
+    background: transparent; /* use ".container" background color */
+    padding: 0;
 }
 
+/* CARDS GRID */
 .reports-section {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 40px;
-    margin: 20px;
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* seperate columns on the grid and auto-fit when resizing */
+    gap: 20px; /* gaps between the cards */
+}
+
+/* CARD */
+.card {
+    border-radius: 16px;
+    background: white;
+    height: 140px;
+    padding: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px); /* moves card 4px up on hover (-4px on the y axis) */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.card h5, .card h6 {
+    color: #666; /* prompted color pallete btw */
+    margin-bottom: 10px;
+    font-weight: 500;
 }
 
 .card {
-    border-radius: 13px;
-    background: white;
-    height: 150px;
-    min-width: 150px;
-    padding: 24px;
-    box-shadow: 1px 1px 1px gray;
+    font-size: 20px;
+    font-weight: 600;
 }
 
+/* TRANSACTION SECTION */
 .transaction-history-section {
-    margin: 20px;
-    margin-top: 60px;
-    /* border: 1px solid black; */
-    min-height: 350px;
-    border-radius: 13px;
+    margin-top: 40px;
+    border-radius: 16px;
     background: white;
-    box-shadow: 1px 1px 1px gray;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    padding: 20px;
 }
 
+/* TABLE */
 .transaction-history-section table {
     width: 100%;
-    padding: 10px;
-    text-align: center;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
 }
 
+.transaction-history-section th {
+    text-transform: uppercase; /* all th text to UPPERCASE */
+    font-size: 12px;
+    color: #888;
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.transaction-history-section td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.transaction-history-section tr:hover {
+    background: #f9fafb;
+}
+
+/* BUTTON */
 .logout {
-    background: red;
+    background: #ff4d4f;
     color: white;
     border: none;
-    padding: 8px 15px;
-    border-radius: 15px;
+    padding: 8px 16px;
+    border-radius: 20px;
     cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s ease;
+}
+
+.logout:hover {
+    background: #e04344;
+}
+
+/* ICON */
+.notifications {
+    margin-right: 15px;
+    cursor: pointer;
+    font-size: 18px;
 }
