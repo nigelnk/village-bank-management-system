@@ -1,3 +1,10 @@
+<? php 
+require("../../utils/db_setup.php");
+
+$conn = 
+
+?>
+
 <!DOCTYPE html>
 <html>
     <head> 
