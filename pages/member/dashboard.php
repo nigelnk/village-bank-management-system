@@ -1,8 +1,14 @@
-<? php 
-require("../../utils/db_setup.php");
+<?php 
+require("../../utils/config.php");
+$conn = get_db();
+$conn->select_db("village_bank");
 
-$conn = 
+$member_id = 3; //gonna use $_SESSION["member_id"] when everything is linked i would assume
 
+/* Queries */
+$transactions_query = "SELECT type, amount, transaction_date FROM transactions WHERE member_id = $member_id";
+
+$transactions = $conn->query($transactions_query);
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +25,7 @@ $conn =
             <div>
                 <div class="welcome">
                     Welcome, Yamiko <br>
-                    <p id="user_id">User id #1122</p>
+                    <p id="member_id">Member id #<?php echo $member_id;?></p>
                 </div>
             </div>
 
@@ -57,34 +63,22 @@ $conn =
                             <th>DATE</th>
                             <th>TYPE</th>
                             <th>AMOUNT</th>
-                            <th>BALANCE</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>2026-02-28</td>
-                            <td>Deposit</td>
-                            <td>K2,500</td>
-                            <td>K2,500</td>
-                        </tr>
-                        <tr>
-                            <td>2027-12-28</td>
-                            <td>Borrowed</td>
-                            <td>K1,000</td>
-                            <td>K1,500</td>
-                        </tr>
-                        <tr>
-                            <td>2026-02-28</td>
-                            <td>Deposit</td>
-                            <td>K2,500</td>
-                            <td>K2,500</td>
-                        </tr>
-                        <tr>
-                            <td>2027-12-28</td>
-                            <td>Borrowed</td>
-                            <td>K1,000</td>
-                            <td>K1,500</td>
-                        </tr>
+                        <?php 
+                        while ($row = $transactions->fetch_assoc()) {
+                            $date = $row["transaction_date"];
+                            $type = $row["type"];
+                            $amount = $row["amount"];
+                        
+                            echo "<tr>";
+                            echo "<td>$date</td>";
+                            echo "<td>$type</td>";
+                            echo "<td>K$amount</td>";
+                            echo "<tr>";
+                        }
+                        ?>
                     </tbody>
                 </table>
             </section>
