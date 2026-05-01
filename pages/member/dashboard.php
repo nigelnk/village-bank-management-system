@@ -3,12 +3,30 @@ require("../../utils/config.php");
 $conn = get_db();
 $conn->select_db("village_bank");
 
-$member_id = 3; //gonna use $_SESSION["member_id"] when everything is linked i would assume
+$member_id = 3; //We're gonna use $_SESSION["member_id"] when everything is linked i would assume
 
 /* Queries */
 $transactions_query = "SELECT type, amount, transaction_date FROM transactions WHERE member_id = $member_id";
+$details_query = "SELECT 
+                      members.firstname,
+                      savings.total_shares AS total_savings,
+                      SUM(loans.amount) AS total_active_loans
+                  FROM members
+                  JOIN savings 
+                      ON members.member_id = savings.member_id
+                  JOIN loans 
+                      ON members.member_id = loans.member_id
+                  WHERE members.member_id = $member_id
+                    AND loans.status = 'active'
+                 GROUP BY members.firstname, savings.total_shares;";
+// The above query joins db tables: 'members', 'savings', 'loans' in order to get necessary details for the page i.e firstname, total savings and outstanding loan
 
+
+/* Query results */
 $transactions = $conn->query($transactions_query);
+$query_results = $conn->query($details_query);
+$details = $query_results->fetch_assoc();
+
 ?>
 
 <!DOCTYPE html>
@@ -24,8 +42,8 @@ $transactions = $conn->query($transactions_query);
         <header class="topbar">
             <div>
                 <div class="welcome">
-                    Welcome, Yamiko <br>
-                    <p id="member_id">Member id #<?php echo $member_id;?></p>
+                    Welcome, <?php echo $details["firstname"];?> <br>
+                    <p id="member_id">Member id #<?php echo $member_id?></p>
                 </div>
             </div>
 
@@ -44,11 +62,11 @@ $transactions = $conn->query($transactions_query);
             <section class="reports-section">
                 <div class="card">
                     <h5>Total Savings</h5>
-                    MWK 100,000
+                    MWK <?php echo $details["total_savings"];?>
                 </div>
                 <div class="card">
                     <h6>Loan Balance</h5>
-                    MWK 100,000
+                    MWK <?php echo $details["total_active_loans"];?>
                 </div>
                 <div class="card">
                     <h5>Available credit</h5>
