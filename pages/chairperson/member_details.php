@@ -11,14 +11,39 @@ $conn = get_db();
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <link rel="stylesheet" href="styling.css">
         <title>Member Details</title>
     </head>
 <body>
+    <table>
+        <tr>
+            <td>
+
+<!--sidebar-->
+    <nav class="sidebar">
+        <div class="logo">
+            <img src="" alt="VB-Logo">
+        </div>
+        <hr>
+        <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Members</a></li>
+            <li><a href="#">Loans</a></li> 
+            <li><a href="#">Transactions</a></li>
+            <li><a href="#">View Reports</a></li>
+            <li><a href="#">Profile</a></li>
+        </ul>
+         <a href="" id="add-member-btn">+ Add Member</a>
+
+    </nav>  
+</td>
+<td>  
     <form action="" method="POST">
-        <table border="1" align="center">
+<!--used atable for better structure-->
+        <table class="member-table">
             <tr>
                 <th>member_id</th>
-                <th>firtsname</th>
+                <th>firstname</th>
                 <th>lastname</th>
                 <th>phone</th>
                 <th>loaction</th>
@@ -54,8 +79,10 @@ $conn = get_db();
         </table>
         <br>
 
-        <input type="Submit" value="Add member">
-        &nbsp
-        <input type="button" value="Remove member">
+        <div class="button-group">
+            <input type="Submit" value="Add member">
+            <input type="button" value="Remove member">
+        </div>
+</td></tr>
 </body>
 </html>
