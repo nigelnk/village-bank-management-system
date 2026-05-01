@@ -1,144 +1,142 @@
-body{
-    overflow: hidden;
-}
-.container{
-margin: 0px;
-width: 100%;
-height: fit-content;
-display: flex;
-flex-direction: column;
-align-items: center;
-/* border: solid 2px;   */
-background-color: beige;
-
-}
-.title{
-    font-family: 'Courier New';
-    font-size: 30px;
-    font-weight: 900;
-    margin-top: 20px;
-    text-align: center;
-    color: rgb(227, 7, 7);
-}
-.subtitle img{
-margin-left: 20%;
-    margin-top: 0%;
-    width: 80px;
-border: solid 2px gray;
-border-radius: 7px;
-
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-.form{
-    border: solid 3px;
-    border-color: aqua;
-    padding-left: 10px;
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-    padding: 40px;
-    margin-bottom: 40px;
-    width: 30%;
-    box-shadow: 0 4px 8px blueviolet;
-}
-.username input{
-
-    border: solid 2px;
-    border-color:  rgb(244, 243, 243);
-    border-radius: 5px;
-    margin-bottom: 10px;
-    align-items: center;
-    height: 30px;
-    width: 100%;
-}
-.pass input{
-    
-    border: solid 2px;
-    border-color: rgb(242, 242, 242);
-    border-radius: 5px;
-    margin-bottom: 10px;
-    align-items: center;
-    height: 30px;
-    width: 100%;
-}
-.login input{
-    
-    border: solid 2px;
-    border-color:none;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    align-items: center;
-    height: 30px;
-    width: 50%;
-    background-color: rgb(30, 30, 229);
-    color: white;
-    font-weight: 700;
-    margin-left: 25%;
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f7f2e7, #efe6d1);
+  padding: 20px;
 }
 
-input{
-    border: solid 2px;
-    border-radius: 7px;
-    border-color: rgb(75, 75, 127);
-    margin-top: 10px;
-    /* min-height: 20px; */
-     margin-bottom: 5px;
-    margin-right: 10px;
-    width: 100;
-    background-color: bisque;
-    /* padding-left: 20px; */
-
-}
-.form{
-    border: none;
-    border-radius: 5px;
-    
-    background-color:white;
+.container {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  padding: 40px 35px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  text-align: center;
 }
 
-.create button{
-    background-color: green;
-    height: 30px;
-    text-align: center;
-    margin-top: 5px;
-    margin-left: 50px;
-    margin-right: 50px;
-    border-radius: 7px;
+.title h3 {
+  font-size: 28px;
+  line-height: 1.4;
+  color: #1f4d36;
+  font-weight: 700;
+  margin-bottom: 20px;
 }
-.forgotpas button{
-/* margin-top: 10px; */
- background-color: blue;
-padding-left: 20px;
-margin-left: 50px;
-margin-right: 50px;
-/* border-radius: 5px; */
-text-decoration: none;
-all: unset;
-cursor: pointer;
+
+.subtitle {
+  margin-bottom: 25px;
 }
-.create button{
-all: unset;
-cursor: pointer;
-/* background-color: #06fd06; */
-margin-left: 50px;
-height: 30px;
-border-radius: 5px;
-/* margin-top: 10px; */
+
+.subtitle img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 50%;
+  padding: 6px;
+  border: 3px solid #c9a227;
 }
-/* .or{
-    text-align: center;
-    margin-top: 20px;
-} */
-.create button:hover{
-    background-color: rgb(225, 202, 202);
- }
- .support{
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    /* background-color: black; */
-    margin-top: 5px;
- }
- .forgotpas:hover{
-    background-color: rgb(225, 202, 202);
- }
+
+/* Form Box */
+.form {
+  width: 100%;
+}
+
+/* Inputs */
+.username,
+.pass {
+  margin-bottom: 16px;
+}
+
+.username input,
+.pass input {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  font-size: 15px;
+  outline: none;
+  transition: 0.2s;
+  background: #fff;
+}
+
+.username input:focus,
+.pass input:focus {
+  border-color: #1f4d36;
+  box-shadow: 0 0 0 3px rgba(31, 77, 54, 0.08);
+}
+
+.login {
+  margin-top: 8px;
+}
+
+.login input {
+  width: 100%;
+  height: 48px;
+  border: none;
+  border-radius: 10px;
+  background: #1f4d36;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.login input:hover {
+  background: #173a29;
+}
+
+.support {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+.forgotpas button,
+.create button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: 0.2s;
+  padding: 6px 0;
+}
+
+.forgotpas button {
+  color: #1f4d36;
+}
+
+.forgotpas button:hover {
+  color: #c9a227;
+}
+
+.create button {
+  color: #c9a227;
+}
+
+.create button:hover {
+  color: #1f4d36;
+}
+
+.title h3 {
+  font-size: 22px;
+}
+
+.support {
+  flex-direction: column;
+  gap: 8px;
+}
