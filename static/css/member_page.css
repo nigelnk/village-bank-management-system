@@ -26,7 +26,7 @@ body{
     display: flex;
     justify-content: space-between; /* puts the divs on opposite sides of the screen i.e. ya welcom ndi ya logout */
     align-items: center; /* centers the divs vertically */
-    padding: 0 24px;
+    padding: 0 44px;
     background: white;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* box shadow instead of a solid border... looks better */
     border-bottom: 1px solid #e0e0e0;
@@ -34,10 +34,11 @@ body{
 
 .welcome {
     font-weight: 500; /* bold */
+    font-size: 19px;
 }
 
-#user_id {
-    font-size: 12px;
+#member_id {
+    font-size: 14px;
     color: gray;
 }
 
@@ -134,9 +135,3 @@ body{
     background: #e04344;
 }
 
-/* ICON */
-.notifications {
-    margin-right: 15px;
-    cursor: pointer;
-    font-size: 18px;
-}
