@@ -3,14 +3,15 @@ require("../../utils/config.php");
 $conn = get_db();
 $conn->select_db("village_bank");
 
-$member_id = 3; //We're gonna use $_SESSION["member_id"] when everything is linked i would assume
+$member_id = 2; //We're gonna use $_SESSION["member_id"] when everything is linked i would assume
+
 
 /* Queries */
 $transactions_query = "SELECT type, amount, transaction_date FROM transactions WHERE member_id = $member_id";
 $details_query = "SELECT 
                       members.firstname,
                       savings.total_shares AS total_savings,
-                      SUM(loans.amount) AS total_active_loans
+                      COALESCE(SUM(loans.amount), 0) AS total_active_loans
                   FROM members
                   JOIN savings 
                       ON members.member_id = savings.member_id
@@ -26,6 +27,14 @@ $details_query = "SELECT
 $transactions = $conn->query($transactions_query);
 $query_results = $conn->query($details_query);
 $details = $query_results->fetch_assoc();
+
+if (!$details) {
+    $details = [
+        "firstname" => "Unknown User",
+        "total_savings" => 0,
+        "total_active_loans" => 0
+    ];
+};
 
 ?>
 
@@ -48,10 +57,6 @@ $details = $query_results->fetch_assoc();
             </div>
 
             <div>
-                <span class="notifications">
-                    
-                </span>
-                
                 <button class="logout">
                     Logout
                 </button>
