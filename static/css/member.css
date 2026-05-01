@@ -1,0 +1,92 @@
+/* sidebar*/ 
+
+.sidebar{
+width:200px;
+height:100vh;
+background:#1F4D36;
+color:white;
+padding:30px 22px;
+position:fixed;
+left:0;
+top:0;
+}
+
+.logo{
+font-size:24px;
+font-weight:bold;
+margin-bottom:30px;
+color:#C9A227;
+}
+
+.sidebar hr{
+border:none;
+height:1px;
+background:rgba(255,255,255,.2);
+margin:20px 0;
+}
+
+.sidebar ul{
+list-style:none;
+}
+
+.sidebar li{
+margin:18px 0;
+}
+
+.sidebar a{
+text-decoration:none;
+color:#f4f4f4;
+font-size:17px;
+display:block;
+padding:12px 14px;
+border-radius:10px;
+transition:.2s;
+}
+
+.sidebar a:hover{
+background:#2E6B4A;
+}
+
+.add-member-btn{
+margin-top:30px;
+display:block;
+background:#C9A227;
+color:#173423;
+padding:14px;
+text-align:center;
+text-decoration:none;
+font-weight:bold;
+border-radius:12px;
+}
+
+.remove-member-btn{
+margin-top:30px;
+display:block;
+background:#C9A227;
+color:#173423;
+padding:14px;
+text-align:center;
+text-decoration:none;
+font-weight:bold;
+border-radius:12px;
+}
+
+/* Style the member table specifically */
+.member-table {
+    margin-left: 280px; /* Pushes the table 260px (sidebar width) + 20px (gap) */
+    border-collapse: collapse;
+    width:75%; /* Adjusts width so it doesn't run off the screen */
+}
+
+/* Ensure the form container also respects the sidebar space */
+form {
+    margin-left: 280px;
+}
+
+/* Centering the table content and adding borders as requested before */
+.member-table th, 
+.member-table td {
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: left;
+}
