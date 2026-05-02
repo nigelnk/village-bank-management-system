@@ -42,7 +42,7 @@
 
 
                 <div class="create">
-                    <button type="button">Create New Account</button>
+                    <button type="button">Log Int</button>
                 </div>
 
             </div>

@@ -94,6 +94,23 @@ body {
 
 .login input:hover {
   background: #173a29;
+} 
+
+.signup{
+ margin-top:8px; 
+}
+
+.signup input{
+  width: 100px;
+  height:48px;
+  border:none;
+  border-radius:10px;
+  background:#1f4d36;
+  color:white;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.2s;
 }
 
 .support {
