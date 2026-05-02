@@ -5,7 +5,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 <nav class="sidebar">
 
     <div class="logo">
-        <img src="../assets/images/logo.png" alt="VB Logo">
+        <img src="../../static/photos/logo.jpeg" class="logo" alt="VB Logo">
     </div>
 
     <hr>
