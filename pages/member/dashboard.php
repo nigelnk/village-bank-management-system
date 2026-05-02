@@ -3,7 +3,7 @@ require("../../utils/config.php");
 $conn = get_db();
 $conn->select_db("village_bank");
 
-$member_id = 2; //We're gonna use $_SESSION["member_id"] when everything is linked i would assume
+$member_id = 3; //We're gonna use $_SESSION["member_id"] when everything is linked i would assume
 
 
 /* Queries */
@@ -49,7 +49,10 @@ if (!$details) {
 <body>
     <div class="container">
         <header class="topbar">
-            <div>
+            <div class="topbar-left">
+                <div>
+                    <img class="logo" src="../../static/photos/IMG-20260501-WA0108.jpg" alt="Logo" width="40px" height="40px">
+                </div>
                 <div class="welcome">
                     Welcome, <?php echo $details["firstname"];?> <br>
                     <p id="member_id">Member id #<?php echo $member_id?></p>
@@ -67,11 +70,11 @@ if (!$details) {
             <section class="reports-section">
                 <div class="card">
                     <h5>Total Savings</h5>
-                    MWK <?php echo $details["total_savings"];?>
+                    <span id="total-savings">MWK <?php echo $details["total_savings"];?></span>
                 </div>
                 <div class="card">
-                    <h6>Loan Balance</h5>
-                    MWK <?php echo $details["total_active_loans"];?>
+                    <h5>Loan Balance</h5>
+                    <span id="loan-balance">MWK <?php echo $details["total_active_loans"];?></span>
                 </div>
                 <div class="card">
                     <h5>Available credit</h5>
