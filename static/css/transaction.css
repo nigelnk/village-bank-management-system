@@ -1,0 +1,180 @@
+/*cards*/
+
+.cards {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 25px;
+  margin-bottom: 35px;
+}
+
+.card {
+  background: white;
+  padding: 28px;
+  border-radius: 18px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.money-card {
+  background: linear-gradient(135deg, #1f4d36, #2d6a4f);
+  color: white;
+}
+
+.money-card h3 {
+  opacity: 0.9;
+}
+
+.money-card h2 {
+  font-size: 42px;
+  margin-top: 18px;
+}
+
+.card h3 {
+  color: gold;
+  margin-bottom: 14px;
+}
+
+.card h2 {
+  font-size: 30px;
+  color: gold;
+}
+
+.gold-line {
+  height: 5px;
+  width: 70px;
+  background: #c9a227;
+  margin-top: 16px;
+  border-radius: 8px;
+}
+
+.main {
+  margin-left: 260px;
+  padding: 40px;
+  width: calc(100% - 260px);
+}
+
+.page-title {
+  margin-bottom: 30px;
+}
+
+.page-title h1 {
+  font-size: 34px;
+  color: #1f4d36;
+}
+
+/*tabel*/
+
+.table-box {
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background: #1f4d36;
+  color: white;
+  padding: 18px;
+  text-align: left;
+}
+
+td {
+  padding: 16px;
+  border-bottom: 1px solid #ececec;
+}
+
+tr:hover {
+  background: #ffe7c4;
+}
+
+.loan-badge {
+  background: #ffe7c4;
+  color: #7c5200;
+  padding: 6px 11px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.deposit-badge {
+  background: #d8f3dc;
+  color: #245b38;
+  padding: 6px 11px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.out {
+  color: #b21f1f;
+  font-weight: bold;
+}
+
+.in {
+  color: #1c7d38;
+  font-weight: bold;
+}
+
+.amount {
+  font-weight: bold;
+}
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination a {
+  display: inline-block;
+  padding: 8px 12px;
+  margin: 3px;
+  text-decoration: none;
+  background: #f1f1f1;
+  color: #333;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.pagination a:hover {
+  background: #0b3d2e;
+  color: white;
+}
+
+.pagination a.active {
+  background: #245b38;;
+  color: white;
+  font-weight: bold;
+}
+
+/* Search bar */
+.search-bar {
+  margin-bottom: 15px;
+  text-align: right;
+}
+
+.search-bar input[type="text"] {
+  padding: 6px 10px;
+  width: 250px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.search-bar button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  background: #0b3d2e;
+  color: white;
+  cursor: pointer;
+}
+
+.search-bar button:hover {
+  background: #d4af37;
+  color: #000;
+}
+
+table td.amount,
+table td {
+  text-align: right;
+}
