@@ -36,7 +36,7 @@
                     <input type="password" name="password" required placeholder="Confirm Password">
                 </div>
 
-                <div class="sign up">
+                <div class="signup">
                     <input type="submit" value="Sign Up">
                 </div>
 
