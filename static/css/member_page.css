@@ -26,20 +26,21 @@ body{
     display: flex;
     justify-content: space-between; /* puts the divs on opposite sides of the screen i.e. ya welcom ndi ya logout */
     align-items: center; /* centers the divs vertically */
-    padding: 0 44px;
-    background: white;
+    padding: 0 34px;
+    background: #1F4D36;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* box shadow instead of a solid border... looks better */
     border-bottom: 1px solid #e0e0e0;
 }
 
 .welcome {
-    font-weight: 500; /* bold */
+    font-weight: bold;
     font-size: 19px;
+    color: #FDD017;
 }
 
 #member_id {
     font-size: 14px;
-    color: gray;
+    color: lightgray;
 }
 
 /* DASHBOARD */
@@ -135,3 +136,21 @@ body{
     background: #e04344;
 }
 
+.topbar-left {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+
+.logo {
+    border-radius: 17px;
+}
+
+#loan-balance {
+    color: red;
+}
+
+#total-savings {
+    color: limegreen;
+}
