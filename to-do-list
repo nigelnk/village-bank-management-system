@@ -1,0 +1,10 @@
+What do we need:
+    1. Name ==> "members"
+    2. Member id ==> "(any)"
+    3. Total savings ==> "savings"
+    3. Loan balance(if any) ==> "loans"  'SUM(amount CASE status = 'active' ELSE 0)' or however you write it
+    4. transaction details ==> "transactions"
+
+    (4. Available credit) idk about this
+
+

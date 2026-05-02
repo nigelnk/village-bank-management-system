@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Sign Up - Village Bank</title>
-    <link rel="stylesheet" href="../../static/css/signup.css">
+    <link rel="stylesheet" href="../static/css/signup.css">
 </head>
 
 <body>

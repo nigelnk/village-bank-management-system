@@ -79,7 +79,7 @@ th {
   background: #1f4d36;
   color: white;
   padding: 18px;
-  text-align: left;
+  text-align: center;
 }
 
 td {
@@ -176,5 +176,5 @@ tr:hover {
 
 table td.amount,
 table td {
-  text-align: right;
+  text-align: center;
 }
