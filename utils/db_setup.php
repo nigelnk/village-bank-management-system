@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS users (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     member_id BIGINT,
     role_id BIGINT,
-    created_at DATE
+    created_at DATE NULL,
     username VARCHAR(30) UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
 
@@ -126,9 +126,9 @@ VALUES
 $conn->query("
 INSERT INTO users (member_id, role_id, created_at, username, password_hash)
 VALUES
-(1, 1, UNIX_TIMESTAMP(), 'fortune_salijen', '2y$10dsdfewrfsfd'),
-(2, 2, UNIX_TIMESTAMP(), 'blessings_ngaiyaye', '2y$10dfderer345ef'),
-(3, 3, UNIX_TIMESTAMP(), 'alice_ndolo', '2y$10dfdsdfdsfd');
+(1, 1, CURDATE(), 'fortune_salijen', '2y$10dsdfewrfsfd'),
+(2, 2, CURDATE(), 'blessings_ngaiyaye', '2y$10dfderer345ef'),
+(3, 3, CURDATE(), 'alice_ndolo', '2y$10dfdsdfdsfd');
 ");
 
 // shares
@@ -150,9 +150,9 @@ INSERT INTO shares (member_id, share, paid_at) VALUES
 //savings
 $conn->query("
 INSERT INTO savings (member_id, total_shares, updated_at) VALUES
-(1, 15000, UNIX_TIMESTAMP()),
-(2, 9000, UNIX_TIMESTAMP()),
-(3, 6000, UNIX_TIMESTAMP());
+(1, 15000, CURDATE()),
+(2, 9000, CURDATE()),
+(3, 6000, CURDATE());
 ");
 
 // loans
@@ -171,6 +171,18 @@ VALUES
 $conn->query("
 INSERT INTO transactions (type, member_id, amount, direction, transaction_date) VALUES
 ('loan', 1, 5000, 'OUT', '2026-02-01'),
+('loan', 2, 10000, 'OUT', '2026-01-10'),
+('loan', 2, 10000, 'IN', '2026-03-10'),
+('loan', 3, 5000, 'OUT', '2026-03-01'),
+('loan', 3, 2000, 'IN', '2026-03-20'),
+('loan', 2, 10000, 'OUT', '2026-01-10'),
+('loan', 2, 10000, 'IN', '2026-03-10'),
+('loan', 3, 5000, 'OUT', '2026-03-01'),
+('loan', 3, 2000, 'IN', '2026-03-20'),
+('loan', 2, 10000, 'OUT', '2026-01-10'),
+('loan', 2, 10000, 'IN', '2026-03-10'),
+('loan', 3, 5000, 'OUT', '2026-03-01'),
+('loan', 3, 2000, 'IN', '2026-03-20'),
 ('loan', 2, 10000, 'OUT', '2026-01-10'),
 ('loan', 2, 10000, 'IN', '2026-03-10'),
 ('loan', 3, 5000, 'OUT', '2026-03-01'),
