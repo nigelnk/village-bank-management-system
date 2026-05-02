@@ -1,0 +1,78 @@
+/* chairperson.css – exact replica of original inline styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+header {
+    background: #042b0c;
+    color: rgb(140, 165, 28);
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+.wrap {
+    display: flex;
+}
+.side {
+    width: 200px;
+    background: #042b0c;
+    padding: 15px;
+}
+.side a {
+    display: block;
+    color: rgb(243, 245, 239);
+    padding: 10px;
+    text-decoration: none;
+}
+.main {
+    flex: 1;
+    padding: 20px;
+}
+.cards {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+.card {
+    background: hsl(200, 13%, 95%);
+    padding: 15px;
+    border-radius: 5px;
+    width: calc(25% - 20px);
+    min-width: 150px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+.approve {
+    background: green;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.reject {
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.muted {
+    color: #7f8c8d;
+    text-align: center;
+}
+.short-line {
+    width: 31%;
+    margin: auto;
+}
+h3{
+    color:#7f8c8d
+
+}
