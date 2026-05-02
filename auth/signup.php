@@ -25,11 +25,15 @@
             <form method="post" action="log_in_page.php">
 
                 <div class="username">
-                    <input type="text" name="username" required placeholder="username">
+                    <input type="text" name="username" required placeholder="Ussername">
                 </div>
 
                 <div class="pass">
                     <input type="password" name="password" required placeholder="Enter Password">
+                </div> 
+                
+                 <div class="pass">
+                    <input type="password" name="password" required placeholder="Confirm Password">
                 </div>
 
                 <div class="sign up">
@@ -42,7 +46,7 @@
 
 
                 <div class="create">
-                    <button type="button">Log Int</button>
+                    <button type="button">Log In</button>
                 </div>
 
             </div>
