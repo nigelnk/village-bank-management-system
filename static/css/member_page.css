@@ -68,6 +68,12 @@ body{
     padding: 20px;
     box-shadow: 0 6px 20px rgba(0,0,0,0.06);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 600;
+    justify-content: center;
 }
 
 .card:hover {
@@ -81,10 +87,11 @@ body{
     font-weight: 500;
 }
 
-.card {
-    font-size: 20px;
-    font-weight: 600;
+.card-icon {
+    padding-right: 30px;
 }
+
+
 
 /* TRANSACTION SECTION */
 .transaction-history-section {
@@ -120,6 +127,13 @@ body{
     background: #f9fafb;
 }
 
+.transaction-type {
+    background: rgba(0,0,0,0.05);
+    padding: 2px 24px;
+    border-radius: 24px;
+    text-transform: capitalize;
+}
+
 /* BUTTON */
 .logout {
     background: #ff4d4f;
@@ -147,10 +161,3 @@ body{
     border-radius: 17px;
 }
 
-#loan-balance {
-    color: red;
-}
-
-#total-savings {
-    color: limegreen;
-}
