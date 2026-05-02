@@ -1,4 +1,5 @@
 <?php
+require_once 'auth_check.php';
 $currentPage = basename($_SERVER['PHP_SELF']);
 ?>
 
