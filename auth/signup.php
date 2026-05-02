@@ -30,6 +30,10 @@
 
                 <div class="pass">
                     <input type="password" name="password" required placeholder="Enter Password">
+                </div> 
+                
+                 <div class="pass">
+                    <input type="password" name="password" required placeholder="Confirm Password">
                 </div>
 
                 <div class="sign up">
@@ -38,13 +42,7 @@
 
             </form>
 
-            <div class="support">
-
-
-                <div class="create">
-                    <button type="button">Create New Account</button>
-                </div>
-
+            
             </div>
 
         </div>
