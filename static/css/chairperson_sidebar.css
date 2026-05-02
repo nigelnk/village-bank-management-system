@@ -1,0 +1,67 @@
+.sidebar {
+  width: 260px;
+  height: 100vh;
+  background: #1f4d36;
+  color: white;
+  padding: 30px 22px;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.logo {
+  margin-bottom: 30px;
+  font-weight : bold;
+  margin-bottom: 30px;
+  color: #c9a227;
+}
+
+.sidebar hr {
+  border: none;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 20px 0;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li {
+  margin: 18px 0;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #f4f4f4;
+  font-size: 17px;
+  display: block;
+  padding: 12px 14px;
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+.sidebar a:hover {
+  background: #2e6b4a;
+}
+
+
+.sidebar a.active {
+  background: #2e6b4a;
+  color: gold;
+  font-weight: bold;
+  border-left: 4px solid gold;
+}
+  
+
+.add-member-btn{
+    margin-top: 30px;
+    display: block;
+    background: #c9a227;
+    color: #173423;
+    padding: 14px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 12px
+}
