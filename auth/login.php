@@ -13,7 +13,7 @@
     <div class="container">
 
         <div class="title">
-            <h3>WELCOME TO MALAWILANO VILLAGE BANK</h3>
+            <h3>WELCOME TO NANSADI VILLAGE BANK</h3>
         </div>
 
         <div class="subtitle">
