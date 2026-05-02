@@ -9,7 +9,7 @@
 
     <div class="topbar-right">
 
-        <a href="../member/dashboard.php" class="switch-btn">
+        <a href="../chairperson/chairperson.php" class="switch-btn">
             Switch to Member View
         </a>
 
