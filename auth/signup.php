@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="signup">
-                    <input type="submit" value="Sign Up" action="complete_profile.php">
+                    <input type="submit" value="Sign Up">
                 </div>
 
             </form>
