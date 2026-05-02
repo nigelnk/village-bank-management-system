@@ -3,7 +3,7 @@ require("../../utils/config.php");
 $conn = get_db();
 $conn->select_db("village_bank");
 
-$member_id = 3; //We're gonna use $_SESSION["member_id"] when everything is linked i would assume
+$member_id = 1; //We're gonna use $_SESSION["member_id"] when everything is linked i would assume
 
 
 /* Queries */
@@ -69,17 +69,25 @@ if (!$details) {
         <main class="dashboard">
             <section class="reports-section">
                 <div class="card">
-                    <h5>Total Savings</h5>
-                    <span id="total-savings">MWK <?php echo $details["total_savings"];?></span>
+                    <div class="card-icon">
+                        <img src="../../static/photos/icons8-get-cash-50.png" alt="png">
+                    </div>
+                    <div class="card-info">
+                        <h5>Total Savings</h5>
+                        <span id="total-savings">MWK <?php echo number_format($details["total_savings"]);?></span> <!-- number_format() adds commas (',') for i.e '60000' becomes '60,000'-->
+                    </div>
                 </div>
+
                 <div class="card">
-                    <h5>Loan Balance</h5>
-                    <span id="loan-balance">MWK <?php echo $details["total_active_loans"];?></span>
+                    <div class="card-icon">
+                        <img src="../../static/photos/icons8-coin-50.png" alt="png">
+                    </div>
+                    <div class="card-info">
+                        <h5>Loan Balance</h5>
+                        <span id="loan-balance">MWK <?php echo number_format($details["total_active_loans"]);?></span>
+                    </div>
                 </div>
-                <div class="card">
-                    <h5>Available credit</h5>
-                    MWK 100,000
-                </div>
+    
             </section>
 
             <section class="transaction-history-section">
@@ -96,11 +104,11 @@ if (!$details) {
                         while ($row = $transactions->fetch_assoc()) {
                             $date = $row["transaction_date"];
                             $type = $row["type"];
-                            $amount = $row["amount"];
+                            $amount = number_format($row["amount"]);
                         
                             echo "<tr>";
                             echo "<td>$date</td>";
-                            echo "<td>$type</td>";
+                            echo "<td><span class='transaction-type'>$type</span></td>";
                             echo "<td>K$amount</td>";
                             echo "<tr>";
                         }
