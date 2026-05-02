@@ -4,7 +4,7 @@
 <head>
     <title>Village Bank Login</title>
 
-    <link rel="stylesheet" href="../../static/css/signin.css">
+    <link rel="stylesheet" href="../static/css/signin.css">
 
 </head>
 
