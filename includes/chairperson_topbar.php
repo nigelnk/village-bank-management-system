@@ -1,3 +1,6 @@
+<?php
+require_once 'auth_check.php';
+?>
 <header class="topbar">
 
     <div class="topbar-left">

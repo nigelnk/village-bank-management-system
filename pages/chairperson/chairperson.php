@@ -1,4 +1,6 @@
 <?php
+
+require_once 'auth_check.php';
 // =============================================
 // connect to database
 // =============================================
@@ -62,79 +64,97 @@ $loanRows = $conn->query("
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Chairperson Dashboard</title>
-     <link rel="stylesheet" href="../../static/css/chairperson.css">
+    <link rel="stylesheet" href="../../static/css/chairperson.css">
     <script>
         function confirmAction(msg) {
             return confirm(msg);
         }
     </script>
 </head>
+
 <body>
 
-<header>
-    <div><strong>Village Bank</strong> - Chairperson Dashboard</div><br>
-    <div>Welcome <?php echo htmlspecialchars($_SESSION['username'] ?? 'Guest'); ?> | 
-         <a style='color:#fff' href='logout.php'>Logout</a>
-    </div>
-</header>  
-<hr class= "short-line">
-
-<div class='wrap'>
-    <nav class='side'>
-        <a href='#'>Dashboard</a>
-        <a href='#members'>Members</a>
-        <a href='#loans'>Loans</a>
-        <a href='#reports'>Reports</a>
-    </nav>
-    <main class='main'>
-        <div class='cards'>
-            <div class='card'><h3>Total Members</h3><p><?php echo (int)$members; ?></p></div>
-            <div class='card'><h3>Pending Loans</h3><p><?php echo (int)$pending; ?></p></div>
-            <div class='card'><h3>Total Savings</h3><p>MWK <?php echo number_format($savings); ?></p></div>
-            <div class='card'><h3>Defaulters</h3><p><?php echo (int)$defaulters; ?></p></div>
+    <header>
+        <div><strong>Village Bank</strong> - Chairperson Dashboard</div><br>
+        <div>Welcome <?php echo htmlspecialchars($_SESSION['username'] ?? 'Guest'); ?> |
+            <a style='color:#fff' href='logout.php'>Logout</a>
         </div>
+    </header>
+    <hr class="short-line">
 
-        <section id='loans'>
-            <h2>Pending Loan Requests</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th><th>Member</th><th>Amount (MWK)</th><th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php if ($loanRows && $loanRows->num_rows > 0): ?>
-                    <?php while ($row = $loanRows->fetch_assoc()): ?>
+    <div class='wrap'>
+        <nav class='side'>
+            <a href='#'>Dashboard</a>
+            <a href='#members'>Members</a>
+            <a href='#loans'>Loans</a>
+            <a href='#reports'>Reports</a>
+        </nav>
+        <main class='main'>
+            <div class='cards'>
+                <div class='card'>
+                    <h3>Total Members</h3>
+                    <p><?php echo (int)$members; ?></p>
+                </div>
+                <div class='card'>
+                    <h3>Pending Loans</h3>
+                    <p><?php echo (int)$pending; ?></p>
+                </div>
+                <div class='card'>
+                    <h3>Total Savings</h3>
+                    <p>MWK <?php echo number_format($savings); ?></p>
+                </div>
+                <div class='card'>
+                    <h3>Defaulters</h3>
+                    <p><?php echo (int)$defaulters; ?></p>
+                </div>
+            </div>
+
+            <section id='loans'>
+                <h2>Pending Loan Requests</h2>
+                <table>
+                    <thead>
                         <tr>
-                            <td><?php echo htmlspecialchars($row['id']); ?></td>
-                            <td><?php echo htmlspecialchars($row['member_name']); ?></td>
-                            <td><?php echo number_format($row['amount']); ?></td>
-                            <td>
-                                <form method='POST' style='display:inline' onsubmit="return confirmAction('Approve this loan?')">
-                                    <input type='hidden' name='loan_id' value='<?php echo $row['id']; ?>'>
-                                    <input type='hidden' name='csrf_token' value='<?php echo $_SESSION['csrf_token']; ?>'>
-                                    <button class='approve' name='approve'>Approve</button>
-                                </form>
-                                <form method='POST' style='display:inline' onsubmit="return confirmAction('Reject this loan?')">
-                                    <input type='hidden' name='loan_id' value='<?php echo $row['id']; ?>'>
-                                    <input type='hidden' name='csrf_token' value='<?php echo $_SESSION['csrf_token']; ?>'>
-                                    <button class='reject' name='reject'>Reject</button>
-                                </form>
-                            </td>
+                            <th>ID</th>
+                            <th>Member</th>
+                            <th>Amount (MWK)</th>
+                            <th>Action</th>
                         </tr>
-                    <?php endwhile; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan='4' class='muted'>No pending loans</td>
-                    </tr>
-                <?php endif; ?>
-                </tbody>
-            </table>
-        </section>
-    </main>
-</div>
+                    </thead>
+                    <tbody>
+                        <?php if ($loanRows && $loanRows->num_rows > 0): ?>
+                            <?php while ($row = $loanRows->fetch_assoc()): ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($row['id']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['member_name']); ?></td>
+                                    <td><?php echo number_format($row['amount']); ?></td>
+                                    <td>
+                                        <form method='POST' style='display:inline' onsubmit="return confirmAction('Approve this loan?')">
+                                            <input type='hidden' name='loan_id' value='<?php echo $row['id']; ?>'>
+                                            <input type='hidden' name='csrf_token' value='<?php echo $_SESSION['csrf_token']; ?>'>
+                                            <button class='approve' name='approve'>Approve</button>
+                                        </form>
+                                        <form method='POST' style='display:inline' onsubmit="return confirmAction('Reject this loan?')">
+                                            <input type='hidden' name='loan_id' value='<?php echo $row['id']; ?>'>
+                                            <input type='hidden' name='csrf_token' value='<?php echo $_SESSION['csrf_token']; ?>'>
+                                            <button class='reject' name='reject'>Reject</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <?php endwhile; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan='4' class='muted'>No pending loans</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
 
 </body>
+
 </html>

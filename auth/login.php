@@ -12,13 +12,14 @@
 
     <div class="container">
 
+        <div class="subtitle">
+            <img src="../../static/photos/logo.jpeg" alt="Village Bank Logo">
+        </div>
         <div class="title">
-            <h3>WELCOME TO MALAWILANO VILLAGE BANK</h3>
+            <h3>WELCOME TO NANSADI VILLAGE BANK</h3>
         </div>
 
-        <div class="subtitle">
-            <img src="../../static/photos/logo.png" alt="Village Bank Logo">
-        </div>
+
 
         <div class="form">
 
