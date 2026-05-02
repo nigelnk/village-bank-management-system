@@ -46,7 +46,7 @@
 
 
                 <div class="create">
-                    <button type="button">Log In</button>
+                    <button type="button"><a href="login.php">Log In</a></button>
                 </div>
 
             </div>
