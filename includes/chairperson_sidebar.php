@@ -12,15 +12,15 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
     <ul>
         <li>
-            <a href="dashboard.php"
+            <a href="../chairperson/dashboard.php"
                class="<?= ($currentPage == 'dashboard.php') ? 'active' : ''; ?>">
                Dashboard
             </a>
         </li>
 
         <li>
-            <a href="members.php"
-               class="<?= ($currentPage == 'members.php') ? 'active' : ''; ?>">
+            <a href="member_details.php"
+               class="<?= ($currentPage == 'member_details.php') ? 'active' : ''; ?>">
                Members
             </a>
         </li>
@@ -38,14 +38,4 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                View Reports
             </a>
         </li>
-
-        <li>
-            <a href="profile.php"
-               class="<?= ($currentPage == 'profile.php') ? 'active' : ''; ?>">
-               Profile
-            </a>
-        </li>
-    </ul>
-
-    <a href="#" class="add-member-btn"> + Add Memebr </a>
 </nav>
