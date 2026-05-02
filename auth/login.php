@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="create">
-                    <button type="button">Create New Account</button>
+                    <button type="button"><a href="signup.php">Create New Account</a></button>
                 </div>
 
             </div>
