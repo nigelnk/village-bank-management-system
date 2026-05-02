@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  background: #f7f2e7;
+  color: #233126;
+}
+
+.main {
+  margin-left: 260px;
+  margin-top: 72px;
+  padding: 40px;
+  background: #f7f2e7;
+  min-height: 100vh;
+
+  width: calc(100% - 260px);
+}
