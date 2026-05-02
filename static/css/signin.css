@@ -112,6 +112,9 @@ body {
   cursor:pointer;
   transition:0.2s;
 }
+ .signup input:hover {
+  background: #173a29;
+} 
 
 .support {
   display: flex;
