@@ -1,4 +1,5 @@
 <?php
+
 require_once './utils/config.php';
 
 $mysqli = get_server_db();
