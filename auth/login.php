@@ -17,7 +17,7 @@
         </div>
 
         <div class="subtitle">
-            <img src="../../static/photos/logo.png" alt="Village Bank Logo">
+            <img src="../../static/photos/logo.jpeg" alt="Village Bank Logo">
         </div>
 
         <div class="form">
