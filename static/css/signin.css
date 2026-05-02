@@ -116,6 +116,14 @@ body {
   background: #173a29;
 } 
 
+a{
+  text-decoration: none;
+  color:#c9a227;
+}
+ a:hover{
+  color:#1f4d36;
+ }
+
 .support {
   display: flex;
   justify-content: space-between;
