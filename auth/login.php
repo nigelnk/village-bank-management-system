@@ -5,7 +5,9 @@ require_once '../utils/config.php';
 $conn = get_server_db();
 
 if (!$conn) {
-    die("Database connection failed.");
+    $_SESSION["error_message"] = "Database connection failed.";
+    header("Location: login.php");
+    die();
 }
 
 $conn->select_db("village_bank");
@@ -86,25 +88,29 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     }
 
                     // fallback
-                    header("Location: login.php?error=unknown_status");
+                    $_SESSION["error_message"] = "Unknown status";
+                    header("Location: login.php");
                     exit();
 
                 break;
 
                 default:
-                    header("Location: login.php?error=unknown_role");
+                    $_SESSION["error_message"] = "Unkown role";
+                    header("Location: login.php");
                     break;
             }
 
             exit();
         } else {
             // wrong password
-            header("Location: login.php?error=invalid_password");
+            $_SESSION["error_message"] = "Invalid password!";
+            header("Location: login.php");
             exit();
         }
     } else {
         // user not found
-        header("Location: login.php?error=user_not_found");
+        $_SESSION["error_message"] = "Account does not exit. Please create one.";
+        header("Location: login.php");
         exit();
     }
 }
@@ -116,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <title>Village Bank Login</title>
 
-    <link rel="stylesheet" href="../../static/css/signin.css">
+    <link rel="stylesheet" href="../static/css/signin.css">
 
 </head>
 
@@ -125,10 +131,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <div class="container">
 
         <div class="subtitle">
-            <img src="../../static/photos/logo.jpeg" alt="Village Bank Logo">
+            <img class="logo" src="../static/photos/logo.jpeg" alt="Village Bank Logo">
         </div>
         <div class="title">
             <h3>WELCOME TO NANSADI VILLAGE BANK</h3>
+        </div>
+        
+        <div>
+            <?php 
+            if (isset($_SESSION["error_message"])) {
+                $error_message = $_SESSION["error_message"];
+                echo "<p class='error-message'>$error_message</p>";
+                unset($_SESSION["error_message"]);
+            }
+            ?>
         </div>
 
         <div class="form">
@@ -172,3 +188,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </body>
 
 </html>
+
+<?php 
+exit();
+?>
