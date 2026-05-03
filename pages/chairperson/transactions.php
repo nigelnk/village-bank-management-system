@@ -88,13 +88,13 @@ $balances = [];
                 <div class="gold-line"></div>
             </div>
             <div class="card">
-                <h3>Outstanding Loans</h3>
-                <h2>MK<?php echo number_format($outstandingLoans); ?></h2>
+                <h3 style="color: black;">Outstanding Loans</h3>
+                <h2 style="color: black;">MK<?php echo number_format($outstandingLoans); ?></h2>
                 <div class="gold-line"></div>
             </div>
             <div class="card">
-                <h3>Deposits This Month</h3>
-                <h2>MK<?php echo number_format($monthlyDeposits); ?></h2>
+                <h3 style="color: black;">Deposits This Month</h3>
+                <h2 style="color: black;">MK<?php echo number_format($monthlyDeposits); ?></h2>
                 <div class="gold-line"></div>
             </div>
         </div>
