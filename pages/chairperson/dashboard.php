@@ -1,4 +1,13 @@
 <?php
+
+require_once '../../auth_check.php';
+requireRole('Chairperson');
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../login.php");
+    exit();
+}
+
 require_once '../../utils/config.php';
 $conn = get_db();
 
@@ -48,7 +57,7 @@ $totalCollected = $conn->query("SELECT SUM(total_paid) total FROM loans")->fetch
     <?php include("../../includes/chairperson_sidebar.php"); ?>
 
     <?php $pageTitle = "Chairperson Dashboard";
-    
+
     include("../../includes/chairperson_topbar.php"); ?>
 
     <div class="main">
@@ -97,7 +106,7 @@ $totalCollected = $conn->query("SELECT SUM(total_paid) total FROM loans")->fetch
                         </div>
                     <?php } ?>
                 </div>
-                
+
 
             </div>
 
