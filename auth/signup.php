@@ -2,101 +2,56 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Sign Up - Village Bank</title>
-    <link rel="stylesheet" href="../../static/css/signup.css">
+    <title>Village Bank Sign Up</title>
+
+    <link rel="stylesheet" href="../static/css/signin.css">
+
 </head>
 
 <body>
 
-    <div class="layout">
-        <!-- container -->
-        <main class="main">
+    <div class="container">
 
-            <h1>Join Our Group</h1>
+        <div class="title">
+            <h3>WELCOME TO NANSADI VILLAGE BANK</h3>
+        </div>
 
-            <form class="form">
+        <div class="subtitle">
+            <img src="../static/photos/logo.jpeg" alt="Village Bank Logo">
+        </div>
 
-                <section class="card">
-                    <h3>Personal Details</h3>
+        <div class="form">
 
-                    <div class="grid">
-                        <div>
-                            <label>First Name</label>
-                            <input type="text" placeholder="Enter first name">
-                        </div>
+            <form method="post" action="log_in_page.php">
 
-                        <div>
-                            <label>Last Name</label>
-                            <input type="text" placeholder="Enter last name">
-                        </div>
+                <div class="username">
+                    <input type="text" name="username" required placeholder="Username">
+                </div>
 
-                        <div>
-                            <label>Gender</label>
-                            <div class="radio-group">
-                                <label><input type="radio" name="gender"> Male</label>
-                                <label><input type="radio" name="gender"> Female</label>
-                            </div>
-                        </div>
+                <div class="pass">
+                    <input type="password" name="password" required placeholder="Enter Password">
+                </div> 
+                
+                 <div class="pass">
+                    <input type="password" name="password" required placeholder="Confirm Password">
+                </div>
 
-                        <div>
-                            <label>National ID</label>
-                            <input type="text" placeholder="ID number">
-                        </div>
-                    </div>
-                </section>
-
-                <section class="card">
-                    <h3>Contact Details</h3>
-
-                    <div class="grid">
-                        <div>
-                            <label>Phone Number</label>
-                            <input type="text" placeholder="e.g. 099...">
-                        </div>
-
-                        <div>
-                            <label>Address</label>
-                            <textarea placeholder="Physical address"></textarea>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="card">
-                    <h3>Emergency Contact</h3>
-
-                    <div class="grid">
-                        <div>
-                            <label>Full Name</label>
-                            <input type="text" placeholder="Next of kin name">
-                        </div>
-
-                        <div>
-                            <label>Relationship</label>
-                            <select>
-                                <option>Sibling</option>
-                                <option>Parent</option>
-                                <option>Spouse</option>
-                                <option>Other</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label>Phone Number</label>
-                            <input type="text" placeholder="Next of kin phone">
-                        </div>
-                    </div>
-                </section>
-
-                <div class="buttons">
-                    <button type="submit" class="btn primary">Save Member</button>
-                    <button type="reset" class="btn danger">Reset</button>
-                    <a class="btn primary" style="text-decoration: none;" href="/auth/login.php">Back to login</a>
+                <div class="signup">
+                    <input type="submit" value="Sign Up">
                 </div>
 
             </form>
 
-        </main>
+            <div class="support">
+
+
+                <div class="create">
+                    <button type="button"><a href="login.php">Log In</a></button>
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
