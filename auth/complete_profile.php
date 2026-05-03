@@ -27,7 +27,7 @@ $conn->close();
 <html>
 <head>
     <title>Complete Profile</title>
-<link href="../../static/css/addmember.css" rel="stylesheet">
+<link href="../../static/css/singup.css" rel="stylesheet">
 </head>
 <body>
     
