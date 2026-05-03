@@ -1,5 +1,13 @@
 <?php
-require_once 'auth_check.php';
+session_start();
+
+// safety check
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$username = $_SESSION['username'];
 ?>
 <header class="topbar">
 
@@ -24,7 +32,7 @@ require_once 'auth_check.php';
 
             <div class="profile-info">
                 <span class="name">Chairperson</span>
-                <small>Administrator</small>
+                <small><?php echo strtoupper($username); ?></small>
             </div>
 
         </div>
