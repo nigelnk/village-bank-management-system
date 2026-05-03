@@ -13,29 +13,41 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     <ul>
         <li>
             <a href="../chairperson/dashboard.php"
-               class="<?= ($currentPage == 'dashboard.php') ? 'active' : ''; ?>">
-               Dashboard
+                class="<?= ($currentPage == 'dashboard.php') ? 'active' : ''; ?>">
+                Dashboard
             </a>
         </li>
 
         <li>
             <a href="member_details.php"
-               class="<?= ($currentPage == 'member_details.php') ? 'active' : ''; ?>">
-               Members
+                class="<?= ($currentPage == 'member_details.php') ? 'active' : ''; ?>">
+                Members
             </a>
         </li>
 
         <li>
             <a href="transactions.php"
-               class="<?= ($currentPage == 'transactions.php') ? 'active' : ''; ?>">
-               Transactions
+                class="<?= ($currentPage == 'transactions.php') ? 'active' : ''; ?>">
+                Transactions
             </a>
         </li>
 
         <li>
             <a href="reports.php"
-               class="<?= ($currentPage == 'reports.php') ? 'active' : ''; ?>">
-               View Reports
+                class="<?= ($currentPage == 'reports.php') ? 'active' : ''; ?>">
+                View Reports
+            </a>
+        </li>
+
+        <li>
+            <a href="../chairperson/member_approval.php"
+                class="<?= ($currentPage == 'member_approval.php') ? 'active' : ''; ?>">
+                Approve members
+            </a>
+        </li>
+        <li class="logout">
+            <a href="../../auth/logout.php">
+                Logout
             </a>
         </li>
 </nav>

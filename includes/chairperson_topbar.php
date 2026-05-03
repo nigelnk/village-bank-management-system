@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+// safety check
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$username = $_SESSION['username'];
+?>
 <header class="topbar">
 
     <div class="topbar-left">
@@ -21,7 +32,7 @@
 
             <div class="profile-info">
                 <span class="name">Chairperson</span>
-                <small>Administrator</small>
+                <small><?php echo strtoupper($username); ?></small>
             </div>
 
         </div>
