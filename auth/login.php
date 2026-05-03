@@ -138,14 +138,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <div class="username">
                     <input type="text" name="username" required placeholder="username">
                 </div>
+                <br>
 
                 <div class="pass">
                     <input type="password" name="password" required placeholder="Enter password">
                 </div>
+                <br>
 
                 <div class="login">
                     <input type="submit" value="Log In">
                 </div>
+                <br>
 
             </form>
 
@@ -154,6 +157,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <div class="forgotpas">
                     <button type="button">Forgot Password?</button>
                 </div>
+                <br>
 
                 <div class="create">
                     <a href="signup.php">Create New Account</button>
