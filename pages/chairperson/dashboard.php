@@ -1,12 +1,12 @@
 <?php
 
-session_start();
+require_once __DIR__ . '/../../auth_check.php';
+requireRole('Chairperson');
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../auth/login.php");
+    header("Location: ../login.php");
     exit();
 }
-
 
 require_once '../../utils/config.php';
 $conn = get_db();
