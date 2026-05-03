@@ -22,48 +22,44 @@ try {
         role_name VARCHAR(12) NOT NULL UNIQUE
     )");
 
-        // create members table
-        $conn->query("
-    CREATE TABLE IF NOT EXISTS members (
-        member_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-        firstname VARCHAR(30) NOT NULL,
-        lastname VARCHAR(30) NOT NULL,
-        phone BIGINT,
-        location TEXT,
-        next_of_kin VARCHAR(30),
-        gender VARCHAR(8),
-        status VARCHAR(10),
-        joined_date DATE,
-        updated_at DATE
-    )");
-
-        // create Users table */
-        $conn->query("
+    // users table
+    $conn->query("
     CREATE TABLE IF NOT EXISTS users (
         id BIGINT AUTO_INCREMENT PRIMARY KEY,
-        member_id BIGINT,
         role_id BIGINT,
-        created_at DATE NULL,
         username VARCHAR(30) UNIQUE NOT NULL,
         password_hash TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-        FOREIGN KEY (member_id) REFERENCES members(member_id),
         FOREIGN KEY (role_id) REFERENCES roles(role_id)
     )");
+    // create members table
+    $conn->query("
+    CREATE TABLE IF NOT EXISTS members (
+        member_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+        user_id BIGINT UNIQUE, 
 
-        // create shares table
-        $conn->query("
-    CREATE TABLE IF NOT EXISTS shares (
-        id BIGINT AUTO_INCREMENT PRIMARY KEY,
-        member_id BIGINT,
-        share BIGINT,
-        paid_at DATE,
+        firstname VARCHAR(30) NOT NULL,
+        lastname VARCHAR(30) NOT NULL,
+        phone VARCHAR(20),
+        location TEXT,
 
-        FOREIGN KEY (member_id) REFERENCES members(member_id)
+        next_of_kin_name VARCHAR(50),
+        next_of_kin_phone VARCHAR(20),
+        relationship VARCHAR(20),
+
+        gender VARCHAR(10),
+
+        status ENUM('pending','approved','rejected') DEFAULT 'pending',
+
+        joined_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP NULL DEFAULT NULL,
+
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
     )");
 
-        // create savings table
-        $conn->query("
+    // create savings table
+    $conn->query("
     CREATE TABLE IF NOT EXISTS savings (
         id BIGINT AUTO_INCREMENT PRIMARY KEY,
         member_id BIGINT UNIQUE,
@@ -73,8 +69,8 @@ try {
         FOREIGN KEY (member_id) REFERENCES members(member_id)
     )");
 
-        // create loans table
-        $conn->query("
+    // create loans table
+    $conn->query("
     CREATE TABLE IF NOT EXISTS loans (
         id BIGINT AUTO_INCREMENT PRIMARY KEY,
         member_id BIGINT,
@@ -89,8 +85,8 @@ try {
         FOREIGN KEY (member_id) REFERENCES members(member_id)
     )");
 
-        // create transactions table
-        $conn->query("
+    // create transactions table
+    $conn->query("
     CREATE TABLE IF NOT EXISTS transactions (
         id BIGINT AUTO_INCREMENT PRIMARY KEY,
         type VARCHAR(10),
@@ -102,10 +98,10 @@ try {
         FOREIGN KEY (member_id) REFERENCES members(member_id)
     )");
 
-        // some dumy data
+    // some dumy data
 
-        //roles
-        $conn->query("
+    //roles
+    $conn->query("
     INSERT IGNORE INTO roles (role_name) VALUES
     ('Chairperson'),
     ('Treasurer'),
@@ -113,27 +109,28 @@ try {
     ('Guest')
     ");
 
-        // members
-        $conn->query("
-    INSERT INTO members 
-    (firstname, lastname, phone, location, next_of_kin, gender, status, joined_date, updated_at)
-    VALUES
-    ('Fortune', 'Salijen', 265888111111, 'Blantyre', 265888222222, 'Male', 'active', CURDATE(), CURDATE()),
-    ('Blessings', 'Ngaiyaye', 265888333333, 'Zomba', 265888444444, 'Male', 'active', CURDATE(), CURDATE()),
-    ('Alice', 'Ndolo', 265888555555, 'Lilongwe', 265888666666, 'Female', 'active', CURDATE(), CURDATE());
-    ");
+    // users
+    $conn->query("
+        INSERT INTO users (id, role_id, username, password_hash)
+        VALUES
+        (1, 1, 'fortune_salijen', '2y$10dsdfewrfsfd'),
+        (2, 2, 'blessings_ngaiyaye', '2y$10dfderer345ef'),
+        (3, 3, 'alice_ndolo', '2y$10dfdsdfdsfd')
+        ");
 
-        // users
-        $conn->query("
-    INSERT INTO users (member_id, role_id, created_at, username, password_hash)
-    VALUES
-    (1, 1, CURDATE(), 'fortune_salijen', '2y$10dsdfewrfsfd'),
-    (2, 2, CURDATE(), 'blessings_ngaiyaye', '2y$10dfderer345ef'),
-    (3, 3, CURDATE(), 'alice_ndolo', '2y$10dfdsdfdsfd');
-    ");
+    // members 
 
-        // shares
-        $conn->query("
+    $conn->query("
+        INSERT INTO members 
+        (user_id, firstname, lastname, phone, location, next_of_kin_phone, next_of_kin_name, relationship, gender, status, joined_date, updated_at)
+        VALUES
+        (1, 'Fortune', 'Salijen', '265888111111', 'Blantyre', '265888222222', 'John Salijen', 'parent', 'Male', 'approved', CURDATE(), CURDATE()),
+        (2, 'Blessings', 'Ngaiyaye', '265888333333', 'Zomba', '265888444444', 'Mary Ngaiyaye', 'sibling', 'Male', 'approved', CURDATE(), CURDATE()),
+        (3, 'Alice', 'Ndolo', '265888555555', 'Lilongwe', '265888666666', 'Grace Ndolo', 'parent', 'Female', 'approved', CURDATE(), CURDATE())
+        ");
+
+    // shares
+    $conn->query("
     INSERT INTO shares (member_id, share, paid_at) VALUES
     (1, 5000, '2026-01-05'),
     (1, 5000, '2026-02-05'),
@@ -148,16 +145,16 @@ try {
     (3, 2000, '2026-03-05');
     ");
 
-        //savings
-        $conn->query("
+    //savings
+    $conn->query("
     INSERT INTO savings (member_id, total_shares, updated_at) VALUES
     (1, 15000, CURDATE()),
     (2, 9000, CURDATE()),
     (3, 6000, CURDATE());
     ");
 
-        // loans
-        $conn->query("
+    // loans
+    $conn->query("
     INSERT INTO loans 
     (member_id, amount, total_paid, balance, interest, status, date_borrowed, date_paid)
     VALUES
@@ -168,8 +165,8 @@ try {
     (3, 5000, 2000, 3000, 500, 'active', '2026-03-01', NULL);
     ");
 
-        // transactions
-        $conn->query("
+    // transactions
+    $conn->query("
     INSERT INTO transactions (type, member_id, amount, direction, transaction_date) VALUES
     ('loan', 1, 5000, 'OUT', '2026-02-01'),
     ('loan', 2, 10000, 'OUT', '2026-01-10'),

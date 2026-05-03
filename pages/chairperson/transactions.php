@@ -1,6 +1,7 @@
 <?php
 
-require_once 'auth_check.php';
+require_once '../../auth_check.php';
+requireRole('Chairperson');
 
 require_once '../../utils/config.php';
 $conn = get_db();
