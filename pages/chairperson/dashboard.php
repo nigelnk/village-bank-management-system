@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../auth_check.php';
+require_once '../../auth_check.php';
 requireRole('Chairperson');
 
 if (!isset($_SESSION['user_id'])) {
