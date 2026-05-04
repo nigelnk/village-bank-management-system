@@ -12,8 +12,18 @@ if (isset($_POST['edit_id'])) {
     $lastname = $conn->real_escape_string($_POST['lastname']);
     $phone = $conn->real_escape_string($_POST['phone']);
     $location = $conn->real_escape_string($_POST['location']);
-    $status = $conn->real_escape_string($_POST['status']);
+    // $status = $conn->real_escape_string($_POST['status']);
+    $status = "";
     $role_id = !empty($_POST['role_id']) ? (int)$_POST['role_id'] : null;
+
+
+    if ($role_id == 4) {
+        $status = "pending";
+    }
+
+    else {
+        $status = "approved";
+    }
 
     // Update members table
     $conn->query("
@@ -220,7 +230,6 @@ while ($role = $rolesResult->fetch_assoc()) {
                 <input type="text" name="lastname" id="lastname" placeholder="Last Name"><br><br>
                 <input type="text" name="phone" id="phone" placeholder="Phone"><br><br>
                 <input type="text" name="location" id="location" placeholder="Location"><br><br>
-                <input type="text" name="status" id="status" placeholder="Status"><br><br>
                 <select name="role_id" id="role_id">
                     <option value="">Select Role</option>
                     <?php foreach ($roles as $role): ?>
