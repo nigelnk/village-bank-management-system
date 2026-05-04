@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     
 
                 case 'Treasurer':
-                    header("Location: ../pages/treasurer/dashboard.php");
+                    header("Location: ../pages/treasurer/loan_management.php");
                     $stmt = $conn->prepare("
                         SELECT member_id 
                         FROM members 
