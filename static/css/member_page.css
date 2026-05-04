@@ -160,4 +160,19 @@ body{
 .logo {
     border-radius: 17px;
 }
+.switch-btn {
+  background: #08a63d;
+  color: white;
+  text-decoration: none;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+
+.switch-btn:hover {
+  opacity: 0.9;
+}
 
