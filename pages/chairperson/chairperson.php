@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 
 require("../../utils/config.php");
@@ -28,7 +28,7 @@ $stmt = $conn->prepare("SELECT
              AND loans.status = 'active'
          WHERE members.member_id = ?
         GROUP BY members.firstname, savings.total_shares;");
-        // The above query joins db tables: 'members', 'savings', 'loans' in order to get necessary details for the page i.e firstname, total savings and outstanding loan
+// The above query joins db tables: 'members', 'savings', 'loans' in order to get necessary details for the page i.e firstname, total savings and outstanding loan
 $stmt->bind_param("i", $member_id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -52,12 +52,14 @@ if (!$details) {
 
 <!DOCTYPE html>
 <html>
-    <head> 
-        <title>Member page </title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-        <link rel="stylesheet" href="../../static/css/member_page.css">
-    </head>
+
+<head>
+    <title>Member page </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/member_page.css">
+</head>
+
 <body>
     <div class="container">
         <header class="topbar">
@@ -66,15 +68,18 @@ if (!$details) {
                     <img class="logo" src="../../static/photos/IMG-20260501-WA0108.jpg" alt="Logo" width="40px" height="40px">
                 </div>
                 <div class="welcome">
-                    Welcome, <?php echo $details["firstname"];?> <br>
-                    <p id="member_id">Member id #<?php echo $member_id?></p>
+                    Welcome, <?php echo $details["firstname"]; ?> <br>
+                    <p id="member_id">Member id #<?php echo $member_id ?></p>
                 </div>
             </div>
 
             <div>
+                <a href="../chairperson/dashboard.php" class="switch-btn">
+                    Back to Dashboard
+                </a>
                 <a href="../../auth/login.php"><button class="logout">
-                    Logout
-                </button></a>
+                        Logout
+                    </button></a>
             </div>
         </header>
 
@@ -86,7 +91,7 @@ if (!$details) {
                     </div>
                     <div class="card-info">
                         <h5>Total Savings</h5>
-                        <span id="total-savings">MWK <?php echo number_format($details["total_savings"]);?></span> <!-- number_format() adds commas (',') for i.e '60000' becomes '60,000'-->
+                        <span id="total-savings">MWK <?php echo number_format($details["total_savings"]); ?></span> <!-- number_format() adds commas (',') for i.e '60000' becomes '60,000'-->
                     </div>
                 </div>
 
@@ -96,10 +101,10 @@ if (!$details) {
                     </div>
                     <div class="card-info">
                         <h5>Loan Balance</h5>
-                        <span id="loan-balance">MWK <?php echo number_format($details["total_active_loans"]);?></span>
+                        <span id="loan-balance">MWK <?php echo number_format($details["total_active_loans"]); ?></span>
                     </div>
                 </div>
-    
+
             </section>
 
             <section class="transaction-history-section">
@@ -112,12 +117,12 @@ if (!$details) {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php 
+                        <?php
                         while ($row = $transactions->fetch_assoc()) {
                             $date = $row["transaction_date"];
                             $type = $row["type"];
                             $amount = number_format($row["amount"]);
-                        
+
                             echo "<tr>";
                             echo "<td>$date</td>";
                             echo "<td><span class='transaction-type'>$type</span></td>";
@@ -128,9 +133,10 @@ if (!$details) {
                     </tbody>
                 </table>
             </section>
-        </main>     
+        </main>
     </div>
 </body>
+
 </html>
 
 <?php
