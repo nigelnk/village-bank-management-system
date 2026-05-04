@@ -1,12 +1,12 @@
-<? php
-  include("../../utils/db_setup.php");
+<?php
+require_once "../../utils/config.php";
 
 //pdf library
-require('fpdf.php');
+require('../../fpdf186/fpdf.php');
 
 $conn = get_db();
 
-$sql = "SELECT t.transaction_date, t.type, t.amount, m.firstname, m.lastname FROM trasactions t 
+$sql = "SELECT t.transaction_date, t.type, t.amount, m.firstname, m.lastname FROM transactions t 
 JOIN members m ON t.member_id = m.member_id
 ORDER BY t.transaction_date ASC";
 
@@ -14,7 +14,7 @@ $result = $conn -> query($sql);
 
 //creating the pdf
 $pdf = new FPDF();
-$pdf = AddPage();
+$pdf -> AddPage();
 
 //title
 $pdf-> SetFont('Arial', 'B', 16);
@@ -33,7 +33,7 @@ $pdf->Ln();
 $pdf->SetFont('Arial', '', 10);
  $balance = 0; 
 
-if $result(num_rows>0){
+if ($result -> num_rows > 0 ){
  while($row = $result->fetch_assoc()){
   $name = $row['firstname'] . ' ' .$row['lastname'];
     // update running balance
