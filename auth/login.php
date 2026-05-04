@@ -18,6 +18,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
+    //For persisting username in username field
+    $_SESSION['old_username'] = $username;
+
     $stmt = $conn->prepare("
         SELECT u.id, u.username, u.password_hash, r.role_name
         FROM users u
@@ -39,8 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (password_verify($password, $user['password_hash'])) {
 
             // Store session data
-            $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
+            $_SESSION['user_id'] = $user['id'];
             $_SESSION['role'] = $user['role_name'];
 
             // role-based redirection
@@ -195,7 +198,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <form method="post" action="login.php">
 
                 <div class="username">
-                    <input type="text" name="username" required placeholder="username">
+                <input type="text" name="username" required placeholder="username" value="<?php if (isset($_SESSION['old_username'])) { echo $_SESSION['old_username']; unset($_SESSION['old_username']);} ?>"> <!-- Persisting old username -->
                 </div>
                 <br>
 
