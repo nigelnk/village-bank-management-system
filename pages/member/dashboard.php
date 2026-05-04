@@ -9,7 +9,7 @@ $member_id = $_SESSION["member_id"]; //We're gonna use $_SESSION["member_id"] wh
 
 //Returns us to log in page if some how member id is not defined;
 if (!isset($_SESSION["member_id"])) {
-    $_SESSION["error_message"] = "Member not logged in properly.";
+    $_SESSION["error_message"] = "Login failed! Please try again.";
     header("Location: ../../auth/login.php");
     die();
 }
