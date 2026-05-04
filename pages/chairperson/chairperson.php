@@ -28,6 +28,7 @@ $stmt = $conn->prepare("SELECT
              AND loans.status = 'active'
          WHERE members.member_id = ?
         GROUP BY members.firstname, savings.total_shares;");
+
 // The above query joins db tables: 'members', 'savings', 'loans' in order to get necessary details for the page i.e firstname, total savings and outstanding loan
 $stmt->bind_param("i", $member_id);
 $stmt->execute();
@@ -47,7 +48,6 @@ if (!$details) {
         "total_active_loans" => 0
     ];
 };
-
 ?>
 
 <!DOCTYPE html>
