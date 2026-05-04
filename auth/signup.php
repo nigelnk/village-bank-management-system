@@ -124,7 +124,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user_id = $conn->insert_id;
 
         // redirect to complete form
-        header("Location: ./complete_profile.php?user_id=$user_id");
+        $_SESSION["user_id"] = $user_id;
+        header("Location: complete_profile.php?user_id=$user_id");
         exit();
 
     } else {

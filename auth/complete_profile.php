@@ -53,13 +53,13 @@ if (isset($_POST['save'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Complete Profile</title>
-    <link href="../../static/css/complete_profile.css" rel="stylesheet">
+    <link href="../static/css/complete_profile.css" rel="stylesheet">
 </head>
 <body>
 
     <header class="top-bar">
         <div class="logo">
-            <img src="../../static/photos/logo.jpeg" alt="Logo">
+            <img src="../static/photos/logo.jpeg" alt="Logo">
         </div>
         <div class="logout-container">
             <a href="../auth/logout.php" class="logout-btn">Logout</a>

@@ -12,6 +12,7 @@ if (!$conn) {
 
 $conn->select_db("village_bank");
 
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $username = trim($_POST['username']);
@@ -46,17 +47,59 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             switch ($user['role_name']) {
 
                 case 'Chairperson':
-                    header("Location: ../../pages/chairperson/dashboard.php");
+                    header("Location: ../pages/chairperson/dashboard.php");
+                    $stmt = $conn->prepare("
+                        SELECT member_id 
+                        FROM members 
+                        WHERE user_id = ?
+                        LIMIT 1
+                    ");
+                    $stmt->bind_param("i", $user['id']);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+
+                    if ($row = $result->fetch_assoc()) {
+                        $_SESSION['member_id'] = $row['member_id'];
+                    }
                     exit();
                     
 
                 case 'Treasurer':
-                    header("Location: ../../pages/treasurer/dashboard.php");
+                    header("Location: ../pages/treasurer/dashboard.php");
+                    $stmt = $conn->prepare("
+                        SELECT member_id 
+                        FROM members 
+                        WHERE user_id = ?
+                        LIMIT 1
+                    ");
+                    $stmt->bind_param("i", $user['id']);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+
+                    if ($row = $result->fetch_assoc()) {
+                        $_SESSION['member_id'] = $row['member_id'];
+                    }
                     exit();
 
                 case 'Member':
-                    header("Location: ../../pages/member/dashboard.php");
+                    $stmt = $conn->prepare("
+                        SELECT member_id 
+                        FROM members 
+                        WHERE user_id = ?
+                        LIMIT 1
+                    ");
+                    $stmt->bind_param("i", $user['id']);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+
+                    if ($row = $result->fetch_assoc()) {
+                        $_SESSION['member_id'] = $row['member_id'];
+                    }
+
+                    header("Location: ../pages/member/dashboard.php");
+                    
                     exit();
+
                 case 'Guest':
 
                     $user_id = $user['id'];
@@ -71,19 +114,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                     if ($check->num_rows === 0) {
 
-                        header("Location: ../auth/complete_profile.php?user_id=$user_id");
+                        header("Location: complete_profile.php?user_id=$user_id");
                         exit();
                     }
 
                     $member = $check->fetch_assoc();
 
                     if ($member['status'] === 'pending') {
-                        header("Location: ../auth/waiting_approval.php");
+                        header("Location: waiting_approval.php");
                         exit();
                     }
 
                     if ($member['status'] === 'approved') {
-                        header("Location: ../../pages/member/dashboard.php");
+                        header("Location: ../pages/member/dashboard.php");
                         exit();
                     }
 
