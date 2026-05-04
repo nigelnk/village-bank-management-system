@@ -1,6 +1,5 @@
 <? php
-  include("db_setup.php");
-require once '../../utils/config.php';
+  include("../../utils/db_setup.php");
 
 //pdf library
 require('fpdf.php');
@@ -21,7 +20,7 @@ $pdf = AddPage();
 $pdf-> SetFont('Arial', 'B', 16);
 $pdf-> Cell(190, 10, 'Nansadi Village Bank Cashbook', 0, 1, 'C');
 
-$pdf->Ln(table header
+//header
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(30, 10, 'Date', 1);
 $pdf->Cell(50, 10, 'Member', 1);
@@ -38,8 +37,8 @@ if $result(num_rows>0){
  while($row = $result->fetch_assoc()){
   $name = $row['firstname'] . ' ' .$row['lastname'];
     // update running balance
-        if ($row['type'] == 'deposit' || ($row['type'] == 'loan' && $row['direction'] == 'IN')) {
-            $ balance += $row['amount'];
+        if ($row['type'] == 'share' || ($row['type'] == 'loan' && $row['direction'] == 'IN')) {
+            $balance += $row['amount'];
         } else {
             $balance -= $row['amount'];
         }
