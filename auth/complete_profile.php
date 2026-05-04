@@ -1,10 +1,11 @@
 <?php
 
+//ensure the user is logged in and has guest permissions
 require_once '../auth_check.php';
 requireRole('Guest');
 
+//database connection setup
 require_once '../utils/config.php'; 
-
 $conn = get_db();
 
 if (!isset($_GET['user_id']) && !isset($_POST['user_id'])) {
@@ -13,8 +14,10 @@ if (!isset($_GET['user_id']) && !isset($_POST['user_id'])) {
 
 $user_id = isset($_POST['user_id']) ? $_POST['user_id'] : $_GET['user_id'];
 
+//checks if the form was submitted
 if (isset($_POST['save'])) {
 
+    //capture data from form inputs
     $firstname = $_POST['fname'];
     $lastname = $_POST['lname'];
     $gender = $_POST['gender'];
