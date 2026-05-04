@@ -131,14 +131,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     }
 
                     // fallback
-                    $_SESSION["error_message"] = "Unknown status";
+                    $_SESSION["error_message"] = "Login failed! Please try again.";
                     header("Location: login.php");
                     exit();
 
                 break;
 
                 default:
-                    $_SESSION["error_message"] = "Unkown role";
+                    $_SESSION["error_message"] = "Login failed! Please try again.";
                     header("Location: login.php");
                     break;
             }
@@ -146,13 +146,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             exit();
         } else {
             // wrong password
-            $_SESSION["error_message"] = "Invalid password!";
+            $_SESSION["error_message"] = "Invalid credentials.";
             header("Location: login.php");
             exit();
         }
     } else {
         // user not found
-        $_SESSION["error_message"] = "Account does not exit. Please create one.";
+        $_SESSION["error_message"] = "Invalid credentials.";
         header("Location: login.php");
         exit();
     }
