@@ -12,7 +12,7 @@ function requireRole($roles)
 
     // Not logged in
     if (!isset($_SESSION['user_id'])) {
-        header("Location: ../../auth/login.php");
+        header("Location: ./auth/login.php");
         exit();
     }
 
@@ -39,7 +39,7 @@ function requireRole($roles)
 
     if ($result->num_rows !== 1) {
         session_destroy();
-        header("Location: ../../auth/login.php");
+        header("Location: ./auth/login.php");
         exit();
     }
 
@@ -47,7 +47,7 @@ function requireRole($roles)
     $db_role = strtolower(trim($user['role_name']));
 
     if (!in_array($db_role, $roles)) {
-        header("Location: ../../auth/unauthorized.php");
+        header("Location: ./auth/unauthorized.php");
         exit();
     }
 }

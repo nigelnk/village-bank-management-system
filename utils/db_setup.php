@@ -129,22 +129,6 @@ try {
         (3, 'Alice', 'Ndolo', '265888555555', 'Lilongwe', '265888666666', 'Grace Ndolo', 'parent', 'Female', 'approved', CURDATE(), CURDATE())
         ");
 
-    // shares
-    $conn->query("
-    INSERT INTO shares (member_id, share, paid_at) VALUES
-    (1, 5000, '2026-01-05'),
-    (1, 5000, '2026-02-05'),
-    (1, 5000, '2026-03-05'),
-
-    (2, 3000, '2026-01-05'),
-    (2, 3000, '2026-02-05'),
-    (2, 3000, '2026-03-05'),
-
-    (3, 2000, '2026-01-05'),
-    (3, 2000, '2026-02-05'),
-    (3, 2000, '2026-03-05');
-    ");
-
     //savings
     $conn->query("
     INSERT INTO savings (member_id, total_shares, updated_at) VALUES

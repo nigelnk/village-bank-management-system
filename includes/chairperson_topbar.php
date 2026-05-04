@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 // safety check
 if (!isset($_SESSION['username'])) {

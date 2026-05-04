@@ -1,32 +1,44 @@
 <?php 
+session_start();
+
 require("../../utils/config.php");
 $conn = get_db();
 $conn->select_db("village_bank");
 
-$member_id = 1; //We're gonna use $_SESSION["member_id"] when everything is linked i would assume
+$member_id = $_SESSION["member_id"]; //We're gonna use $_SESSION["member_id"] when everything is linked i would assume
+
+//Returns us to log in page if some how member id is not defined;
+if (!isset($_SESSION["member_id"])) {
+    $_SESSION["error_message"] = "Member not logged in properly.";
+    header("Location: ../../auth/login.php");
+    die();
+}
 
 
-/* Queries */
+/* Details query */
+$stmt = $conn->prepare("SELECT 
+             members.firstname,
+             savings.total_shares AS total_savings,
+             COALESCE(SUM(loans.amount), 0) AS total_active_loans
+         FROM members
+         LEFT JOIN savings  
+             ON members.member_id = savings.member_id
+         LEFT JOIN loans 
+             ON members.member_id = loans.member_id
+             AND loans.status = 'active'
+         WHERE members.member_id = ?
+        GROUP BY members.firstname, savings.total_shares;");
+        // The above query joins db tables: 'members', 'savings', 'loans' in order to get necessary details for the page i.e firstname, total savings and outstanding loan
+$stmt->bind_param("i", $member_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$details = $result->fetch_assoc();
+
+
+
+/* Transactions query */
 $transactions_query = "SELECT type, amount, transaction_date FROM transactions WHERE member_id = $member_id";
-$details_query = "SELECT 
-                      members.firstname,
-                      savings.total_shares AS total_savings,
-                      COALESCE(SUM(loans.amount), 0) AS total_active_loans
-                  FROM members
-                  JOIN savings 
-                      ON members.member_id = savings.member_id
-                  JOIN loans 
-                      ON members.member_id = loans.member_id
-                  WHERE members.member_id = $member_id
-                    AND loans.status = 'active'
-                 GROUP BY members.firstname, savings.total_shares;";
-// The above query joins db tables: 'members', 'savings', 'loans' in order to get necessary details for the page i.e firstname, total savings and outstanding loan
-
-
-/* Query results */
 $transactions = $conn->query($transactions_query);
-$query_results = $conn->query($details_query);
-$details = $query_results->fetch_assoc();
 
 if (!$details) {
     $details = [
@@ -60,9 +72,9 @@ if (!$details) {
             </div>
 
             <div>
-                <button class="logout">
+                <a href="../../auth/login.php"><button class="logout">
                     Logout
-                </button>
+                </button></a>
             </div>
         </header>
 
@@ -120,3 +132,7 @@ if (!$details) {
     </div>
 </body>
 </html>
+
+<?php
+exit();
+?>
