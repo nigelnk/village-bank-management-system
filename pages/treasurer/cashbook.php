@@ -6,6 +6,7 @@ require('../../fpdf186/fpdf.php');
 
 $conn = get_db();
 
+$action = $_GET['action'] ?? '';
 $sql = "SELECT t.transaction_date, t.type, t.amount, m.firstname, m.lastname FROM transactions t 
 JOIN members m ON t.member_id = m.member_id
 ORDER BY t.transaction_date ASC";
@@ -55,7 +56,35 @@ if ($result -> num_rows > 0 ){
     $pdf->Cell(190, 10, 'No transactions found', 1, 1, 'C');
 }
 
-$pdf->Output('F', 'reports/cashbook.pdf');
+
+if($action == 'generate'){
+    $pdf->Output('D', 'cashbook.pdf');
+}
+elseif($action == 'send'){
+    $folder = __DIR__ . '../../reports/';
+    if(!file_exists($folder)){
+        mkdir($folder, 0777, true);
+    }
+
+    //for unique file names
+    $filename = 'cashbook_' . date(Ymd_His) . '.pdf';
+    $filepath = $folder . $filename;
+
+    //save file
+    $pdf->Output('F', $filepath);
+
+    //saving to database
+    $relativePath = 'reports/' . $filepath;
+    $stmt = $conn->prepare("INSERT INTO reports(title, file_path, report_type, date_generated) VALUES (?, ?, ?, NOW())");
+
+    $title = "Cashbook Report";
+    $type = "cashbook";
+
+    $stmt->bind_param("sss", $title, $relativePath, $type);
+    $stmt->execute();
+
+    echo "<script>alert('Cashbook sent to chairperson successfully'); window.location.href='transaction.php';</script>";
+}
 
 
 

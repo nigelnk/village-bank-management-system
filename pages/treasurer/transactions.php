@@ -108,6 +108,15 @@ $balances = [];
             </form>
         </div>
 
+        <div class="cashbook-card">
+            <h3>Cashbook Actions</h3>
+            <div class="actions">
+                <a href="cashbook.php?action=generate" class="btn cream">Generate Cashbook</a>
+                <a href="cashbook.php?action=send" class="btn gold">Send to chairperson</a>
+                <a href="new_transaction.php" class="btn green">New Transaction</a>
+            </div>
+        </div>
+
         <!-- Table -->
         <div class="table-box">
             <table>

@@ -100,6 +100,16 @@ try {
         FOREIGN KEY (member_id) REFERENCES members(member_id)
     )");
 
+    //reports table
+   $conn->query("
+   CREATE TABLE IF NOT EXISTS reports (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    file_path VARCHAR(255),
+    report_type VARCHAR(50),
+    date_generated DATETIME
+)");
+
     // some dumy data
 
     //roles
