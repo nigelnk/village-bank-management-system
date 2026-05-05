@@ -4,7 +4,7 @@ require_once '../../auth_check.php';
 requireRole('Chairperson');
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../login.php");
+    header("Location: ../../auth/login.php");
     exit();
 }
 
@@ -62,7 +62,7 @@ $totalCollected = $conn->query("SELECT SUM(total_paid) total FROM loans")->fetch
 
     <div class="main">
 
-        <!-- CARDS -->
+        <!-- stats -->
         <div class="cards">
             <div class="card">
                 <p>Total Members</p>
@@ -110,7 +110,7 @@ $totalCollected = $conn->query("SELECT SUM(total_paid) total FROM loans")->fetch
 
             </div>
 
-            <!-- Chart -->
+            <!-- chart -->
             <div class="panel center">
                 <h3>Loan Overview</h3>
                 <canvas id="loanChart"></canvas>
