@@ -16,9 +16,10 @@ if (isset($_POST['password'])) {
 
     $conn->query("UPDATE users SET password_hash='$hash' WHERE id=$user_id");
 
-    session_destroy();
+    // after successful update
+    $_SESSION['reset_done'] = true;
 
-    header("Location: login.php");
+    header("Location: password_reset_done.php");
     exit();
 }
 ?>
