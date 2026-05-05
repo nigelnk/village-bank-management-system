@@ -12,7 +12,7 @@ require_once '../../utils/config.php';
 $conn = get_db();
 
 $members = $conn->query("SELECT COUNT(*) as total FROM members")->fetch_assoc()['total'];
-$active = $conn->query("SELECT COUNT(*) as total FROM members WHERE status='active'")->fetch_assoc()['total'];
+$active = $conn->query("SELECT COUNT(*) as total FROM members WHERE status='approved'")->fetch_assoc()['total'];
 $inactive = $conn->query("SELECT COUNT(*) as total FROM members WHERE status='inactive'")->fetch_assoc()['total'];
 
 $savings = $conn->query("SELECT SUM(total_shares) as total FROM savings")->fetch_assoc()['total'] ?? 0;
