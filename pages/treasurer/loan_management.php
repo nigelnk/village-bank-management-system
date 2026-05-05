@@ -64,6 +64,7 @@ $members = $conn->query("SELECT * FROM members");
         <a href="#">Dashboard</a>
         <a href="#">Members</a>
         <a href="#">Loans</a>
+        <a href="transactions.php">Transactions</a>
     </div>
 
     <!-- MAIN -->
@@ -289,7 +290,7 @@ $members = $conn->query("SELECT * FROM members");
         });
 
         /* modals */
-        
+
         function openManage(id, name, interest) {
             document.getElementById('manageModal').style.display = 'block';
             document.getElementById('loan_id').value = id;
