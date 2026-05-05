@@ -55,7 +55,7 @@ if ($result -> num_rows > 0 ){
     $pdf->Cell(190, 10, 'No transactions found', 1, 1, 'C');
 }
 
-$pdf->Output('D', 'cashbook.pdf');
+$pdf->Output('F', 'reports/cashbook.pdf');
 
 
 
