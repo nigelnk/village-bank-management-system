@@ -192,5 +192,28 @@ a{
 
 #password-feedback {
     padding-bottom: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+}
+
+
+/* New: To add toggle password button */
+.pass {
+    position: relative;
+}
+
+.pass input {
+    width: 100%;
+    padding-right: 40px; 
+}
+
+.pass button {
+    position: absolute; /* Uses 'pass' div as reference poin */
+    right: 10px; /* 10px between right side of button and border of 'pass' div */
+    top: 35%; /* Position it 50% of distance away from the top border of 'pass' div */
+    
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #1f4d36;
 }

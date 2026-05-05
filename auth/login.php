@@ -203,7 +203,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <br>
 
                 <div class="pass">
-                    <input type="password" name="password" required placeholder="Enter password">
+                    <input id="password" type="password" name="password" required placeholder="Enter password">
+                    <button type="button" id="togglePassword">Show</button>
                 </div>
                 <br>
 
@@ -230,6 +231,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
 
     </div>
+        
+    <script>
+        const toggleBtn = document.getElementById("togglePassword");
+        const passwordInput = document.getElementById("password");
+
+        toggleBtn.addEventListener("click", function () {
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                toggleBtn.textContent = "Hide";
+            } else {
+                passwordInput.type = "password";
+                toggleBtn.textContent = "Show";
+            }
+        }); 
+    </script>
 
 </body>
 

@@ -44,12 +44,14 @@ session_start();
 
                 <div id="password" class="pass">
                     <input id="password1" type="password" name="password" required placeholder="Enter Password">
+                    <button type="button" id="togglePassword1">Show</button>
                 </div> 
 
                 <p id="password-feedback" class="strength-message"></p>
                 
                  <div class="pass">
-                    <input type="password" name="password2" required placeholder="Confirm Password">
+                    <input id="password2" type="password" name="password2" required placeholder="Confirm Password">
+                    <button type="button" id="togglePassword2">Show</button>
                 </div>
 
                 <div class="signup">
@@ -71,32 +73,86 @@ session_start();
 
     </div>
     <script>
-        /*    Password length validation   */
-        const passwordInput = document.getElementById('password1'); 
-        const feedback = document.getElementById('password-feedback');
-        const form = document.getElementById('form');
+        /*    Password strength validation (using regex patterns)  */
+        // Hard to explain  
+        const passwordInput1 = document.getElementById("password1");
+        const passwordInput2 = document.getElementById("password2");
 
-        passwordInput.addEventListener('blur', () => { // 'blur' trigers the event when the user clicks off the input field 
-            const value = passwordInput.value;
+        const toggleBtn1 = document.getElementById("togglePassword1");
+        const toggleBtn2 = document.getElementById("togglePassword2");
 
-            if (value.length <= 6) {
-                feedback.textContent = "Password must be 6 or more characters";
-                feedback.style.color = "red";
-            } else {
-                feedback.textContent = "";
+        const feedback = document.getElementById("password-feedback");
+        const form = document.getElementById("form");
+
+        passwordInput1.addEventListener("blur", validatePassword);
+        // passwordInput1.addEventListener("input", validatePassword);
+
+        function validatePassword() {
+            const password = passwordInput1.value;
+
+            if (password.length < 8) {
+                showError("At least 8 characters");
+                return false;
             }
-        });
 
-        //triggered when the form is submitted and prevents sign up when the password is too short 
-        form.addEventListener('submit', function (e) {
-            const value = passwordInput.value;
+            if (!/[A-Z]/.test(password)) {
+                showError("Add an uppercase letter");
+                return false;
+            }
 
-            if (value.length <= 6) {
+            if (!/[a-z]/.test(password)) {
+                showError("Add a lowercase letter");
+                return false;
+            }
+
+            if (!/[0-9]/.test(password)) {
+                showError("Add a number");
+                return false;
+            }
+
+            if (!/[!@#$%^&*()_+\-=\[\]{};:'"\\|,.<>\/?]/.test(password)) {
+                showError("Add a special character");
+                return false;
+            }
+
+            // If everything passes
+            feedback.textContent = "Strong password ✅";
+            feedback.style.color = "green";
+            return true;
+        }
+
+        function showError(message) {
+            feedback.textContent = message;
+            feedback.style.color = "red";
+        }
+
+        // Block form submission
+        form.addEventListener("submit", function (e) {
+            if (!validatePassword()) {
                 e.preventDefault();
-                feedback.textContent = "Password must be 6 or more characters";
-                feedback.style.color = "red";
             }
         });
+
+        // Show/Hide password
+        toggleBtn1.addEventListener("click", function () {
+            if (passwordInput1.type === "password") {
+                passwordInput1.type = "text";
+                toggleBtn1.textContent = "Hide";
+            } else {
+                passwordInput1.type = "password";
+                toggleBtn1.textContent = "Show";
+            }
+        }); 
+
+        toggleBtn2.addEventListener("click", function () {
+            if (passwordInput2.type === "password") {
+                passwordInput2.type = "text";
+                toggleBtn2.textContent = "Hide";
+            } else {
+                passwordInput2.type = "password";
+                toggleBtn2.textContent = "Show";
+            }
+        }); 
     </script>
 </body>
 
