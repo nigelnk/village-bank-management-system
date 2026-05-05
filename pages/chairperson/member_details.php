@@ -19,9 +19,7 @@ if (isset($_POST['edit_id'])) {
 
     if ($role_id == 4) {
         $status = "pending";
-    }
-
-    else {
+    } else {
         $status = "approved";
     }
 
@@ -45,14 +43,33 @@ if (isset($_POST['edit_id'])) {
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
-
-// Handle Delete Form Submission
+// delete member, will remove the member form the member table but the user will still exist in the user table
+// when the deleted member tries to login again, the sytem will redirect to complete profie again
 if (isset($_POST['delete_id'])) {
     $delete_id = (int)$_POST['delete_id'];
-    $conn->query("DELETE FROM members WHERE member_id=$delete_id");
+
+    $res = $conn->query("SELECT user_id FROM members WHERE member_id = $delete_id");
+    $user_id = $res->fetch_column();
+
+   
+    $role_res = $conn->query("SELECT role_id FROM roles WHERE role_name = 'Guest'");
+    $guest_role_id = $role_res->fetch_column();
+
+    if ($user_id && $guest_role_id) {
+   
+        $conn->query("UPDATE users SET role_id = '$guest_role_id' WHERE id = '$user_id'");
+
+        $conn->query("DELETE FROM loans WHERE member_id = $delete_id");
+        $conn->query("DELETE FROM savings WHERE member_id = $delete_id");
+        $conn->query("DELETE FROM transactions WHERE member_id = $delete_id");
+
+        $conn->query("DELETE FROM members WHERE member_id = $delete_id");
+    }
+
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
+
 
 // Pagination setup
 $limit = 10;
