@@ -30,6 +30,8 @@ try {
         username VARCHAR(30) UNIQUE NOT NULL,
         password_hash TEXT NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        security_question VARCHAR(255) NULL,
+        security_answer_hash TEXT NULL,
 
         FOREIGN KEY (role_id) REFERENCES roles(role_id)
     )");

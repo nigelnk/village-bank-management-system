@@ -26,13 +26,6 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         </li>
 
         <li>
-            <a href="transactions.php"
-                class="<?= ($currentPage == 'transactions.php') ? 'active' : ''; ?>">
-                Transactions
-            </a>
-        </li>
-
-        <li>
             <a href="reports.php"
                 class="<?= ($currentPage == 'reports.php') ? 'active' : ''; ?>">
                 View Reports
@@ -43,6 +36,15 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             <a href="../chairperson/member_approval.php"
                 class="<?= ($currentPage == 'member_approval.php') ? 'active' : ''; ?>">
                 Approve members
+            </a>
+        </li>
+        <li style="color: gold;">
+            Others
+        </li>
+        <li class="manage-pwd">
+            <a href="../chairperson/manage_password.php"
+                class="<?= ($currentPage == 'manage_password.php') ? 'active' : ''; ?>">
+                Manage password
             </a>
         </li>
         <li class="logout">
