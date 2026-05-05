@@ -145,3 +145,7 @@ textarea {
 .danger:hover {
   background: #dc2626;
 }
+
+#password-feedback {
+    padding-bottom: 5px;
+}

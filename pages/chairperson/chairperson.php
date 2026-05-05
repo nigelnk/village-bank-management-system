@@ -69,7 +69,6 @@ if (!$details) {
                 </div>
                 <div class="welcome">
                     Welcome, <?php echo $details["firstname"]; ?> <br>
-                    <p id="member_id">Member id #<?php echo $member_id ?></p>
                 </div>
             </div>
 

@@ -36,15 +36,17 @@ session_start();
 
         <div class="form">
 
-            <form method="post" action="signup.php">
+            <form id="form" method="post" action="signup.php">
 
                 <div class="username">
                     <input type="text" name="username" required placeholder="Username">
                 </div>
 
-                <div class="pass">
-                    <input type="password" name="password" required placeholder="Enter Password">
+                <div id="password" class="pass">
+                    <input id="password1" type="password" name="password" required placeholder="Enter Password">
                 </div> 
+
+                <p id="password-feedback" class="strength-message"></p>
                 
                  <div class="pass">
                     <input type="password" name="password2" required placeholder="Confirm Password">
@@ -68,7 +70,34 @@ session_start();
         </div>
 
     </div>
+    <script>
+        /*    Password length validation   */
+        const passwordInput = document.getElementById('password1'); 
+        const feedback = document.getElementById('password-feedback');
+        const form = document.getElementById('form');
 
+        passwordInput.addEventListener('blur', () => { // 'blur' trigers the event when the user clicks off the input field 
+            const value = passwordInput.value;
+
+            if (value.length <= 6) {
+                feedback.textContent = "Password must be 6 or more characters";
+                feedback.style.color = "red";
+            } else {
+                feedback.textContent = "";
+            }
+        });
+
+        //triggered when the form is submitted and prevents sign up when the password is too short 
+        form.addEventListener('submit', function (e) {
+            const value = passwordInput.value;
+
+            if (value.length <= 6) {
+                e.preventDefault();
+                feedback.textContent = "Password must be 6 or more characters";
+                feedback.style.color = "red";
+            }
+        });
+    </script>
 </body>
 
 </html>
