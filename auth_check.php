@@ -47,7 +47,7 @@ function requireRole($roles)
     $db_role = strtolower(trim($user['role_name']));
 
     if (!in_array($db_role, $roles)) {
-        header("Location: ./auth/unauthorized.php");
+        header("Location: ../../auth/unauthorized.php");
         exit();
     }
 }
