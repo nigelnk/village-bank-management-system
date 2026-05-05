@@ -1,12 +1,13 @@
 <?php
 
 require_once '../../auth_check.php';
+require_once 'auth_check.php';
 requireRole('Treasurer');
 
 require_once '../../utils/config.php';
 $conn = get_db();
 
-// stat cards
+ stat cards
 $savingsQuery = "SELECT COALESCE(SUM(AMOUNT), 0) as total_savings FROM transactions WHERE TYPE='deposit'";
 $totalSavings = $conn->query($savingsQuery)->fetch_assoc()['total_savings'];
 

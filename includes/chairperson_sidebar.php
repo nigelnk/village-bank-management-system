@@ -26,9 +26,9 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         </li>
 
         <li>
-            <a href="reports.php"
+            <a href="viewreports.php"
                 class="<?= ($currentPage == 'reports.php') ? 'active' : ''; ?>">
-                View Reports
+                Reports
             </a>
         </li>
 
