@@ -45,7 +45,7 @@ if ($result -> num_rows > 0 ){
         }
 
    // row output
-        $pdf->Cell(30, 10, $row['date'], 1);
+        $pdf->Cell(30, 10, $row['transaction_date'], 1);
         $pdf->Cell(50, 10, $name, 1);
         $pdf->Cell(30, 10, ucfirst($row['type']), 1);
         $pdf->Cell(30, 10, number_format($row['amount'], 2), 1);
@@ -61,20 +61,20 @@ if($action == 'generate'){
     $pdf->Output('D', 'cashbook.pdf');
 }
 elseif($action == 'send'){
-    $folder = __DIR__ . '../../reports/';
+    $folder = 'treasurer/treasurerreports/';
     if(!file_exists($folder)){
         mkdir($folder, 0777, true);
     }
 
     //for unique file names
-    $filename = 'cashbook_' . date(Ymd_His) . '.pdf';
+    $filename = 'cashbook_' . date('Ymd_His') . '.pdf';
     $filepath = $folder . $filename;
 
     //save file
     $pdf->Output('F', $filepath);
 
     //saving to database
-    $relativePath = 'reports/' . $filepath;
+    $relativePath =  $filepath;
     $stmt = $conn->prepare("INSERT INTO reports(title, file_path, report_type, date_generated) VALUES (?, ?, ?, NOW())");
 
     $title = "Cashbook Report";
@@ -83,7 +83,7 @@ elseif($action == 'send'){
     $stmt->bind_param("sss", $title, $relativePath, $type);
     $stmt->execute();
 
-    echo "<script>alert('Cashbook sent to chairperson successfully'); window.location.href='transaction.php';</script>";
+    echo "<script>alert('Cashbook sent to chairperson successfully'); window.location.href='dashboard.php';</script>";
 }
 
 

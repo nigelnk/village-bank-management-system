@@ -12,8 +12,8 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
     <ul>
         <li>
-            <a href="../treasurer/transactions.php"
-                class="<?= ($currentPage == 'transactions.php') ? 'active' : ''; ?>">
+            <a href="../treasurer/dashboard.php"
+                class="<?= ($currentPage == 'dashboard.php') ? 'active' : ''; ?>">
                 Dashboard
             </a>
         </li>
