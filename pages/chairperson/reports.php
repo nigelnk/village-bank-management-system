@@ -1,6 +1,8 @@
 <?php
-include('../../utils/db_setup.php');
 
+require_once '../../utils/config.php';
+
+$conn = get_db();
 $result = $conn->query("SELECT * FROM reports ORDER BY date_generated DESC");
 ?>
 

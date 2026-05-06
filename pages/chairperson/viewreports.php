@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-if (!isset($_SESSION["member_id"])) {
+/*if (!isset($_SESSION["member_id"])) {
     $_SESSION["error_message"] = "Member not logged in properly.";
     header("Location: ../../auth/login.php");
     exit();
-}
+}*/
 $member_id = $_SESSION["member_id"];
 
 require_once __DIR__ . '/../../utils/config.php';
