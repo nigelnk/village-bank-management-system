@@ -1,5 +1,67 @@
-<?php 
+<?php
 session_start();
+
+require_once '../utils/config.php';
+$conn = get_db();
+
+// check connection
+if ($conn->connect_error) {
+    $_SESSION["error_message"] = "Failed to connect to database.";
+    header("Location: signup.php");
+    exit();
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    // get form data
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $password2 = $_POST['password2'];
+
+    // check passwords match
+    if ($password !== $password2) {
+        $_SESSION["error_message"] = "Passwords do not match.";
+        header("Location: signup.php");
+        exit();
+    }
+
+    // hash password
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+    // get guest role id
+    $result = $conn->query("SELECT role_id FROM roles WHERE role_name = 'Guest'");
+
+    if ($result->num_rows == 0) {
+        $_SESSION["error_message"] = "Guest role not found. Please insert it first.";
+        header("Location: signup.php");
+        exit();
+    }
+
+    $row = $result->fetch_assoc();
+    $role_id = $row['role_id'];
+
+    // insert user
+    $sql = "INSERT INTO users (role_id, created_at, username, password_hash)
+            VALUES ('$role_id', NOW(), '$username', '$password_hash')";
+
+    if ($conn->query($sql) === TRUE) {
+
+        // get inserted user id
+        $user_id = $conn->insert_id;
+
+        // redirect to complete form
+        $_SESSION["user_id"] = $user_id;
+        header("Location: complete_profile.php?user_id=$user_id");
+        exit();
+
+    } else {
+        $_SESSION["error_message"] = "Error: " . $conn->error;
+        header("Location: signup.php");
+        exit();
+    }
+
+    $conn->close();
+}
 ?>
 
 <!DOCTYPE html>
@@ -7,9 +69,7 @@ session_start();
 
 <head>
     <title>Village Bank Sign Up</title>
-
     <link rel="stylesheet" href="../static/css/signin.css">
-
 </head>
 
 <body>
@@ -23,7 +83,7 @@ session_start();
             <h3>Create account</h3>
         </div>
 
-        <div >
+        <div>
             <?php 
             if (isset($_SESSION["error_message"])) {
                 $error_message = $_SESSION["error_message"];
@@ -32,7 +92,6 @@ session_start();
             }
             ?>
         </div>
-
 
         <div class="form">
 
@@ -49,7 +108,7 @@ session_start();
 
                 <p id="password-feedback" class="strength-message"></p>
                 
-                 <div class="pass">
+                <div class="pass">
                     <input id="password2" type="password" name="password2" required placeholder="Confirm Password">
                     <button type="button" id="togglePassword2">Show</button>
                 </div>
@@ -61,20 +120,15 @@ session_start();
             </form>
 
             <div class="support">
-
-
                 <div class="create">
                     <button type="button"><a href="login.php">Log In</a></button>
                 </div>
-
             </div>
 
         </div>
-
     </div>
+
     <script>
-        /*    Password strength validation (using regex patterns)  */
-        // Hard to explain  
         const passwordInput1 = document.getElementById("password1");
         const passwordInput2 = document.getElementById("password2");
 
@@ -85,7 +139,6 @@ session_start();
         const form = document.getElementById("form");
 
         passwordInput1.addEventListener("blur", validatePassword);
-        // passwordInput1.addEventListener("input", validatePassword);
 
         function validatePassword() {
             const password = passwordInput1.value;
@@ -115,7 +168,6 @@ session_start();
                 return false;
             }
 
-            // If everything passes
             feedback.textContent = "Strong password ✅";
             feedback.style.color = "green";
             return true;
@@ -126,14 +178,12 @@ session_start();
             feedback.style.color = "red";
         }
 
-        // Block form submission
         form.addEventListener("submit", function (e) {
             if (!validatePassword()) {
                 e.preventDefault();
             }
         });
 
-        // Show/Hide password
         toggleBtn1.addEventListener("click", function () {
             if (passwordInput1.type === "password") {
                 passwordInput1.type = "text";
@@ -142,7 +192,7 @@ session_start();
                 passwordInput1.type = "password";
                 toggleBtn1.textContent = "Show";
             }
-        }); 
+        });
 
         toggleBtn2.addEventListener("click", function () {
             if (passwordInput2.type === "password") {
@@ -152,73 +202,8 @@ session_start();
                 passwordInput2.type = "password";
                 toggleBtn2.textContent = "Show";
             }
-        }); 
+        });
     </script>
+
 </body>
-
 </html>
-
-<?php
-
-require_once '../utils/config.php';
-$conn = get_db();
-
-// check connection
-if ($conn->connect_error) {
-    $_SESSION["error_message"] = "Failed to connect to database.";
-    header("Location: signup.php");
-    die();
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    // get form data
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $password2 = $_POST['password2'];
-
-    // check passwords match
-    if ($password !== $password2) {
-        $_SESSION["error_message"] = "Passwords do not match.";
-        header("Location: signup.php");
-        die();
-    }
-
-    // hash password
-    $password_hash = password_hash($password, PASSWORD_DEFAULT);
-
-    // get guest role id
-    $result = $conn->query("SELECT role_id FROM roles WHERE role_name = 'Guest'");
-
-    if ($result->num_rows == 0) {
-        $_SESSION["error_message"] = "Guest role not found. Please insert it first.";
-        header("Location: signup.php");
-        die();
-    }
-
-    $row = $result->fetch_assoc();
-    $role_id = $row['role_id'];
-
-    // insert user
-    $sql = "INSERT INTO users (role_id, created_at, username, password_hash)
-            VALUES ('$role_id', NOW(), '$username', '$password_hash')";
-
-    if ($conn->query($sql) === TRUE) {
-
-        // get inserted user id
-        $user_id = $conn->insert_id;
-
-        // redirect to complete form
-        $_SESSION["user_id"] = $user_id;
-        header("Location: complete_profile.php?user_id=$user_id");
-        exit();
-
-    } else {
-        echo "Error: " . $conn->error;
-    }
-
-    $conn->close();
-}
-
-exit();
-?>
