@@ -12,7 +12,8 @@ body {
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
-}
+} 
+
 
 .top-bar {
     width: 100%;
@@ -52,7 +53,7 @@ body {
 }
 
 .main-content h2 {
-    color: white;
+    color: #1f4d36;
     margin-bottom: 25px;
     font-size: 32px;
 }
@@ -72,8 +73,8 @@ body {
 
 .form-section h4 {
     margin-bottom: 15px;
-    color: #0f766e;
-    border-left: 4px solid #14b8a6;
+    color: #ff9800;
+    border-left: 4px solid #1f4d36;
     padding-left: 10px;
 }
 
@@ -109,9 +110,9 @@ select {
 input:focus,
 textarea:focus,
 select:focus {
-    border-color: #14b8a6;
+    border-color: #1f4d36;
     outline: none;
-    box-shadow: 0 0 5px rgba(20, 184, 166, 0.5);
+    box-shadow: 0 0 5px #1f4d36;
 }
 
 textarea {
@@ -143,17 +144,18 @@ button {
 }
 
 .save {
-    background: #14b8a6;
+    background: #1f4d36;
+    ;
     color: white;
 }
 
 .save:hover {
-    background: #0f766e;
+    background: #1f4d36;
 }
 
 .reset {
-    background: #e5e7eb;
-    color: #333;
+    background: #ff9800;
+    color: #ffffff;
 }
 
 .reset:hover {

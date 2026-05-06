@@ -93,7 +93,8 @@ if (isset($_POST['save'])) {
                         </div>
                         <div class="form-group">
                             <label for="id">National ID Number</label>
-                            <input type="text" name="id" required>
+                            <input id="nationalId" type="text" name="id" required>
+                            <p id="feedback3"></p>
                         </div>
                     </div>
                 </section>
@@ -152,8 +153,11 @@ if (isset($_POST['save'])) {
         const form = document.getElementById("form");
         const phoneInput1 = document.getElementById("phoneInput1");
         const phoneInput2 = document.getElementById("phoneInput2");
+        const nationalIdInput = document.getElementById("nationalId");
+
         const feedback1 = document.getElementById("feedback1");
         const feedback2 = document.getElementById("feedback2");
+        const feedback3 = document.getElementById("feedback3");
 
         phoneInput1.addEventListener("blur", validatePhoneNumber1);
         
@@ -194,11 +198,30 @@ if (isset($_POST['save'])) {
             feedback2.textContent = message;
             feedback2.style.color = "red";
         }
+        
+        /* National Id validation */
+        nationalIdInput.addEventListener("blur", validateNationalId);
+        
+        function validateNationalId() {
+            const nationalId = nationalIdInput.value;
+
+            if(!/^[A-Z0-9]{8}$/.test(nationalId)) {
+                showError3("Invalid format.")
+                return false;
+            }
+            feedback3.textContent = "";
+            return true;
+        }
+
+        function showError3(message) {
+            feedback3.textContent = message;
+            feedback3.style.color = "red";
+        }
 
 
         /* Form denial if not valid */
         form.addEventListener("submit", function (e) {
-            if (!(validatePhoneNumber1() || validatePhoneNumber2())) {
+            if (!(validatePhoneNumber1() || validatePhoneNumber2() || validateNationalId())) {
                 e.preventDefault();
             }
         });
