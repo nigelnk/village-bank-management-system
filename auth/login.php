@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once  ' /../utils/config.php';
+require_once  '../utils/config.php';
 
 $conn = get_server_db(); 
 
@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     
 
                 case 'Treasurer':
-                    header("Location: ../pages/treasurer/transactions.php");
+                    header("Location: ../pages/treasurer/dashboard.php");
                     $stmt = $conn->prepare("
                         SELECT member_id 
                         FROM members 
