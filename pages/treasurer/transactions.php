@@ -1,7 +1,7 @@
 <?php
 
 require_once '../../auth_check.php';
-require_once 'auth_check.php';
+
 requireRole('Treasurer');
 
 require_once '../../utils/config.php';
@@ -72,12 +72,12 @@ $balances = [];
 <body>
 
     <!-- Sidebar -->
-    <?php include("../../includes/chairperson_sidebar.php"); ?>
+    <?php include("../../includes/treasurer_sidebar.php"); ?>
 
     <!-- Topbar -->
     <?php
-    $pageTitle = "Transaction Dashboard";
-    include("../../includes/chairperson_topbar.php");
+    $pageTitle = "Treasurer Dashboard";
+    include("../../includes/treasurer_topbar.php");
     ?>
 
     <div class="main">

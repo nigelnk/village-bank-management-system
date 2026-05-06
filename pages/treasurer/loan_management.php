@@ -51,21 +51,20 @@ $members = $conn->query("SELECT * FROM members");
 <head>
     <title>Loan Dashboard</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="../../static/css/loan_management_style.css">
+    <link rel="stylesheet" href="../../static/css/chairperson_layout.css">
+    <link rel="stylesheet" href="../../static/css/chairperson_sidebar.css">
+    <link rel="stylesheet" href="../../static/css/chairperson_topbar.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
 <body>
 
     <!-- SIDEBAR -->
-    <div class="sidebar">
-        <h2>Village Bank</h2>
-        <a href="#">Dashboard</a>
-        <a href="#">Members</a>
-        <a href="#">Loans</a>
-        <a href="transactions.php">Transactions</a>
-    </div>
+   
+    <?php include("../../includes/treasurer_sidebar.php"); ?>
+
 
     <!-- MAIN -->
     <div class="main">

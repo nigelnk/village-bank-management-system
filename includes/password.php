@@ -129,13 +129,6 @@ if (isset($_POST['save_security'])) {
 
 <body>
 
-    <?php include("../../includes/chairperson_sidebar.php"); ?>
-
-    <?php
-    $pageTitle = "Password Management";
-    include("../../includes/chairperson_topbar.php");
-    ?>
-
     <div class="main">
 
         <!-- succss message -->

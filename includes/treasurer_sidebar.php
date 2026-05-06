@@ -20,8 +20,8 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
         <li>
             <a href="../treasurer/loan_management.php"
-                class="<?= ($currentPage == 'loan-managemnet.php') ? 'active' : ''; ?>">
-                Members
+                class="<?= ($currentPage == 'loan_management.php') ? 'active' : ''; ?>">
+                Loans
             </a>
         </li>
 
