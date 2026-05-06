@@ -23,8 +23,6 @@ if (isset($_POST['change_password'])) {
 
     if (empty($current) || empty($new) || empty($confirm)) {
         $error = "All fields are required.";
-    } elseif (strlen($new) < 6) {
-        $error = "New password must be at least 6 characters.";
     } elseif ($new !== $confirm) {
         $error = "Passwords do not match.";
     } else {
@@ -146,11 +144,11 @@ if (isset($_POST['save_security'])) {
         <?php } ?>
 
         <!-- error msg -->
-        <?php if ($error) { ?>
-            <div class="panel" style="background:#f8d7da;color:#721c24; margin-bottom:5px;">
-                <strong><?= htmlspecialchars($error) ?></strong>
-            </div>
-        <?php } ?>
+            <?php if ($error) { ?>
+            <p  class="panel" style="background:#f8d7da;color:#721c24; margin-bottom:5px;">
+                <strong ><?= htmlspecialchars($error) ?></strong>
+            </p>
+            <?php } ?>
 
         <!-- change password section -->
         <div class="form-box">
@@ -164,7 +162,8 @@ if (isset($_POST['save_security'])) {
 
                 <div class="form-group">
                     <label>New Password</label>
-                    <input type="password" name="new_password" required>
+                    <input id="password" type="password" name="new_password" required>
+                    <p id="passwordFeedback"></p>
                 </div>
 
                 <div class="form-group">
@@ -180,7 +179,7 @@ if (isset($_POST['save_security'])) {
         <div class="form-box">
             <h3>Security Question for password reset</h3>
 
-            <form method="POST">
+            <form id="form" method="POST">
 
                 <div class="form-group">
                     <label>Select Question</label>
@@ -203,6 +202,62 @@ if (isset($_POST['save_security'])) {
 
     </div>
 
+    <script>
+        const passwordInput = document.getElementById("password");
+        const feedback = document.getElementById("passwordFeedback");
+        const form = document.getElementById("form");
+
+
+        passwordInput.addEventListener("blur", validatePassword);
+        // passwordInput1.addEventListener("input", validatePassword);
+
+        function validatePassword() {
+            const password = passwordInput.value;
+
+            if (password.length < 8) {
+                showError("At least 8 characters");
+                return false;
+            }
+
+            if (!/[A-Z]/.test(password)) {
+                showError("Add an uppercase letter");
+                return false;
+            }
+
+            if (!/[a-z]/.test(password)) {
+                showError("Add a lowercase letter");
+                return false;
+            }
+
+            if (!/[0-9]/.test(password)) {
+                showError("Add a number");
+                return false;
+            }
+
+            if (!/[!@#$%^&*()_+\-=\[\]{};:'"\\|,.<>\/?]/.test(password)) {
+                showError("Add a special character");
+                return false;
+            }
+
+            // If everything passes
+            feedback.textContent = "Strong password ✅";
+            // feedback.style.color = "green";
+            return true;
+        }
+
+        function showError(message) {
+            feedback.textContent = message;
+            feedback.style.color = "red";
+        }
+
+        // Block form submission
+        form.addEventListener("submit", function (e) {
+            if (!validatePassword()) {
+                e.preventDefault();
+            }
+        });
+
+    </script>
 </body>
 
 </html>

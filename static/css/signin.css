@@ -207,9 +207,9 @@ a{
 }
 
 .pass button {
-    position: absolute; /* Uses 'pass' div as reference poin */
+    position: absolute; /* Sets position relative to parent element i.e 'pass' div in this case */
     right: 10px; /* 10px between right side of button and border of 'pass' div */
-    top: 35%; /* Position it 50% of distance away from the top border of 'pass' div */
+    top: 35%; /* Position it 35% of distance away from the top border of 'pass' div.... Poor wording but yeah */
     
     background: none;
     border: none;

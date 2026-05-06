@@ -1,131 +1,144 @@
 <?php
 session_start();
 
-// Correct path to config (two levels up from pages/chairperson/)
-require_once __DIR__ . '/../../utils/config.php';
+require("../../utils/config.php");
 $conn = get_db();
 $conn->select_db("village_bank");
 
-// Check login AFTER DB connection (order doesn't matter, but keep once)
+$member_id = $_SESSION["member_id"]; //We're gonna use $_SESSION["member_id"] when everything is linked i would assume
+
+//Returns us to log in page if some how member id is not defined;
 if (!isset($_SESSION["member_id"])) {
     $_SESSION["error_message"] = "Member not logged in properly.";
-    header("Location: ../../auth/login.php");  // up two levels to root/auth/
-    exit();
+    header("Location: ../../auth/login.php");
+    die();
 }
-$member_id = $_SESSION["member_id"];
 
-// ---------- DYNAMIC STATS ----------
-$totalMembers = $conn->query("SELECT COUNT(*) as total FROM members WHERE status='approved'")->fetch_assoc()['total'];
-$totalSavings = $conn->query("SELECT COALESCE(SUM(amount),0) as total FROM transactions WHERE type='deposit'")->fetch_assoc()['total'];
-$totalLoansOut = $conn->query("SELECT COALESCE(SUM(amount),0) as total FROM transactions WHERE type='loan' AND direction='OUT'")->fetch_assoc()['total'];
-$totalLoansIn  = $conn->query("SELECT COALESCE(SUM(amount),0) as total FROM transactions WHERE type='loan' AND direction='IN'")->fetch_assoc()['total'];
-$outstandingLoans = $totalLoansOut - $totalLoansIn;
 
-// recent transactions (last 5)
-$recent = $conn->query("
-    SELECT t.*, m.firstname, m.lastname 
-    FROM transactions t 
-    JOIN members m ON m.member_id = t.member_id 
-    ORDER BY t.transaction_date DESC 
-    LIMIT 5
-");
+/* Details query */
+$stmt = $conn->prepare("SELECT 
+             members.firstname,
+             savings.total_shares AS total_savings,
+             COALESCE(SUM(loans.amount), 0) AS total_active_loans
+         FROM members
+         LEFT JOIN savings  
+             ON members.member_id = savings.member_id
+         LEFT JOIN loans 
+             ON members.member_id = loans.member_id
+             AND loans.status = 'active'
+         WHERE members.member_id = ?
+        GROUP BY members.firstname, savings.total_shares;");
+// The above query joins db tables: 'members', 'savings', 'loans' in order to get necessary details for the page i.e firstname, total savings and outstanding loan
+$stmt->bind_param("i", $member_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$details = $result->fetch_assoc();
 
-// members list for table
-$membersList = $conn->query("
-    SELECT m.*, COALESCE(s.total_shares,0) as savings, 
-           (SELECT COALESCE(SUM(CASE WHEN direction='OUT' THEN amount ELSE 0 END),0) - 
-                   COALESCE(SUM(CASE WHEN direction='IN' THEN amount ELSE 0 END),0)
-            FROM transactions WHERE member_id = m.member_id AND type='loan') as loan_balance
-    FROM members m
-    LEFT JOIN savings s ON m.member_id = s.member_id
-    WHERE m.status = 'approved'
-");
+
+
+/* Transactions query */
+$transactions_query = "SELECT type, amount, transaction_date FROM transactions WHERE member_id = $member_id";
+$transactions = $conn->query($transactions_query);
+
+if (!$details) {
+    $details = [
+        "firstname" => "Unknown User",
+        "total_savings" => 0,
+        "total_active_loans" => 0
+    ];
+};
+
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
+    <title>Member page </title>
     <meta charset="UTF-8">
-    <title>Chairperson Dashboard</title>
-    <link rel="stylesheet" href="../../static/css/chairperson_layout.css">
-    <link rel="stylesheet" href="../../static/css/chairperson_sidebar.css">
-    <link rel="stylesheet" href="../../static/css/chairperson_topbar.css">
-    <link rel="stylesheet" href="../../static/css/styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/member_page.css">
 </head>
+
 <body>
+    <div class="container">
+        <header class="topbar">
+            <div class="topbar-left">
+                <div>
+                    <img class="logo" src="../../static/photos/IMG-20260501-WA0108.jpg" alt="Logo" width="40px" height="40px">
+                </div>
+                <div class="welcome">
+                    Welcome, <?php echo $details["firstname"]; ?> <br>
+                    <p id="member_id">Member id #<?php echo $member_id ?></p>
+                </div>
+            </div>
 
-<!-- Sidebar and Topbar: correct relative paths from pages/chairperson/ -->
-<?php include __DIR__ . '/../../includes/chairperson_sidebar.php'; ?>
-<?php $pageTitle = "Chairperson Dashboard"; include __DIR__ . '/../../includes/chairperson_topbar.php'; ?>
+            <div>
+                <a href="../chairperson/dashboard.php" class="switch-btn">
+                    Back to Dashboard
+                </a>
+                <a href="../../auth/login.php"><button class="logout">
+                        Logout
+                    </button></a>
+            </div>
+        </header>
 
-<div class="main">
-    <!-- stats cards -->
-    <div class="cards">
-        <div class="card"><p>Total Members</p><h2><?php echo $totalMembers; ?></h2></div>
-        <div class="card"><p>Total Savings</p><h2>K<?php echo number_format($totalSavings); ?></h2></div>
-        <div class="card"><p>Total Loans (disbursed)</p><h2>K<?php echo number_format($totalLoansOut); ?></h2></div>
-        <div class="card"><p>Outstanding Loans</p><h2>K<?php echo number_format($outstandingLoans); ?></h2></div>
-    </div>
-
-    <div class="grid">
-        <!-- recent transactions -->
-        <div class="panel">
-            <h3>Recent Transactions</h3>
-            <div class="transaction-list">
-                <?php while($tx = $recent->fetch_assoc()): ?>
-                <div class="transaction">
-                    <div>
-                        <strong><?php echo $tx['firstname'].' '.$tx['lastname']; ?></strong>
-                        <span class="type"><?php echo $tx['direction']; ?></span>
+        <main class="dashboard">
+            <section class="reports-section">
+                <div class="card">
+                    <div class="card-icon">
+                        <img src="../../static/photos/icons8-get-cash-50.png" alt="png">
                     </div>
-                    <div class="right">
-                        <strong>K<?php echo number_format($tx['amount']); ?></strong>
-                        <span><?php echo $tx['transaction_date']; ?></span>
+                    <div class="card-info">
+                        <h5>Total Savings</h5>
+                        <span id="total-savings">MWK <?php echo number_format($details["total_savings"]); ?></span> <!-- number_format() adds commas (',') for i.e '60000' becomes '60,000'-->
                     </div>
                 </div>
-                <?php endwhile; ?>
-            </div>
-        </div>
 
-        <!-- chart -->
-        <div class="panel center">
-            <h3>Loan Overview</h3>
-            <canvas id="loanChart"></canvas>
-        </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <img src="../../static/photos/icons8-coin-50.png" alt="png">
+                    </div>
+                    <div class="card-info">
+                        <h5>Loan Balance</h5>
+                        <span id="loan-balance">MWK <?php echo number_format($details["total_active_loans"]); ?></span>
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="transaction-history-section">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>DATE</th>
+                            <th>TYPE</th>
+                            <th>AMOUNT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        while ($row = $transactions->fetch_assoc()) {
+                            $date = $row["transaction_date"];
+                            $type = $row["type"];
+                            $amount = number_format($row["amount"]);
+
+                            echo "<tr>";
+                            echo "<td>$date</td>";
+                            echo "<td><span class='transaction-type'>$type</span></td>";
+                            echo "<td>K$amount</td>";
+                            echo "<tr>";
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </section>
+        </main>
     </div>
-
-    <!-- members table -->
-    <div class="panel">
-        <h3>Members</h3>
-        <table>
-            <thead><tr><th>Name</th><th>Savings</th><th>Loan Balance</th><th>Status</th></tr></thead>
-            <tbody>
-                <?php while($m = $membersList->fetch_assoc()): ?>
-                <tr>
-                    <td><?php echo $m['firstname'].' '.$m['lastname']; ?></td>
-                    <td>K<?php echo number_format($m['savings']); ?></td>
-                    <td>K<?php echo number_format($m['loan_balance']); ?></td>
-                    <td><span class="badge approved"><?php echo $m['status']; ?></span></td>
-                </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<script>
-    const ctx = document.getElementById('loanChart');
-    new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Disbursed', 'Collected'],
-            datasets: [{
-                data: [<?php echo $totalLoansOut; ?>, <?php echo $totalLoansIn; ?>],
-                backgroundColor: ['#e4990e', '#0b3d2e']
-            }]
-        }
-    });
-</script>
 </body>
+
 </html>
+
+<?php
+exit();
+?>
