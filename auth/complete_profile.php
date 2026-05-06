@@ -129,7 +129,6 @@ if (isset($_POST['save'])) {
                                 <option value="sibling">Sibling</option>
                                 <option value="parent">Parent</option>
                                 <option value="spouse">Spouse</option>
-                                <option value="other">Other</option>
                             </select>
                         </div>
                         <div class="form-group">
