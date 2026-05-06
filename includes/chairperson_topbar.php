@@ -19,7 +19,7 @@ $username = $_SESSION['username'];
 
     <div class="topbar-right">
 
-       <a href="../../pages/member/dashboard.php" class="switch-btn">
+       <a href="../../pages/chairperson/chairperson.php" class="switch-btn">
     Switch to Member View
 </a>
 
