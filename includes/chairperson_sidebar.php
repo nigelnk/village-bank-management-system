@@ -26,7 +26,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         </li>
 
         <li>
-            <a href="viewreports.php"
+            <a href="reports.php"
                 class="<?= ($currentPage == 'reports.php') ? 'active' : ''; ?>">
                 Reports
             </a>
@@ -38,9 +38,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 Approve members
             </a>
         </li>
-        <li style="color: gold;">
-            Others
-        </li>
+        
         <li class="manage-pwd">
             <a href="../chairperson/manage_password.php"
                 class="<?= ($currentPage == 'manage_password.php') ? 'active' : ''; ?>">

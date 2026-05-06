@@ -1,14 +1,14 @@
 <?php 
-session_start();
+require_once '../../auth_check.php';
+requireRole(['Chairperson', 'Member']);
 
-require("../../utils/config.php");
+require_once "../../utils/config.php";
 $conn = get_db();
-$conn->select_db("village_bank");
 
 $member_id = $_SESSION["member_id"]; //We're gonna use $_SESSION["member_id"] when everything is linked i would assume
 
 //Returns us to log in page if some how member id is not defined;
-if (!isset($_SESSION["member_id"])) {
+if (!isset($_SESSION["user_id"])) {
     $_SESSION["error_message"] = "Login failed! Please try again.";
     header("Location: ../../auth/login.php");
     die();
@@ -37,7 +37,7 @@ $details = $result->fetch_assoc();
 
 
 /* Transactions query */
-$transactions_query = "SELECT type, amount, transaction_date FROM transactions WHERE member_id = $member_id";
+$transactions_query = "SELECT type, amount, transaction_date FROM transactions WHERE member_id = '$member_id'";
 $transactions = $conn->query($transactions_query);
 
 if (!$details) {
