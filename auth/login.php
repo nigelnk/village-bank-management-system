@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once '../utils/config.php';
+require_once  ' /../utils/config.php';
 
-$conn = get_server_db();
+$conn = get_server_db(); 
 
 if (!$conn) {
     $_SESSION["error_message"] = "Database connection failed.";
@@ -198,7 +198,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <form method="post" action="login.php">
 
                 <div class="username">
-                <input type="text" name="username" required placeholder="username" value="<?php if (isset($_SESSION['old_username'])) { echo $_SESSION['old_username']; unset($_SESSION['old_username']);} ?>"> <!-- Persisting old username -->
+                <input type="text" name="username" required placeholder="Username" value="<?php if (isset($_SESSION['old_username'])) { echo $_SESSION['old_username']; unset($_SESSION['old_username']);} ?>"> <!-- Persisting old username -->
                 </div>
                 <br>
 
