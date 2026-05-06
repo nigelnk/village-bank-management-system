@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once  ' /../utils/config.php';
+require_once  '../utils/config.php';
 
 $conn = get_server_db(); 
 
