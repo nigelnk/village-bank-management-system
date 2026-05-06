@@ -72,7 +72,7 @@ if (isset($_POST['save'])) {
     <main class="main-content">
         <h2>Complete Your Profile</h2>
         <div class="container">
-            <form method="POST" action="">
+            <form id="form" method="POST" action="">
 
                 <!-- p. Details -->
                 <section class="form-section">
@@ -104,7 +104,8 @@ if (isset($_POST['save'])) {
                     <div class="form-row">
                         <div class="form-group">
                             <label for="phonenumber">Phone Number</label>
-                            <input type="text" name="phonenumber" required>
+                            <input id="phoneInput1" type="text" name="phonenumber" required>
+                            <p id="feedback1"></p>
                         </div>
                         <div class="form-group">
                             <label for="address">Physical Address</label>
@@ -132,7 +133,8 @@ if (isset($_POST['save'])) {
                         </div>
                         <div class="form-group">
                             <label for="pnumber">Phone Number</label>
-                            <input type="text" name="pnumber" required>
+                            <input id="phoneInput2" type="text" name="pnumber" required>
+                            <p id="feedback2"></p>
                         </div>
                     </div>
                 </section>
@@ -145,6 +147,62 @@ if (isset($_POST['save'])) {
             </form>
         </div>
     </main>
+    
+    <script>
+        const form = document.getElementById("form");
+        const phoneInput1 = document.getElementById("phoneInput1");
+        const phoneInput2 = document.getElementById("phoneInput2");
+        const feedback1 = document.getElementById("feedback1");
+        const feedback2 = document.getElementById("feedback2");
+
+        phoneInput1.addEventListener("blur", validatePhoneNumber1);
+        
+
+        /* Phone number validation 1 */
+        function validatePhoneNumber1() {
+            const phoneNumber = phoneInput1.value;
+
+            if(!/^(\+265|0)?[1-9]{1}[0-9]{7,8}$/.test(phoneNumber)) {
+                showError1("Invalid format.")
+                return false;
+            }
+            feedback1.textContent = "";
+            return true;
+        }
+
+        function showError1(message) {
+            feedback1.textContent = message;
+            feedback1.style.color = "red";
+        }
+
+        
+        /* Phone number validation 2 */
+        phoneInput2.addEventListener("blur", validatePhoneNumber2);
+        
+        function validatePhoneNumber2() {
+            const phoneNumber = phoneInput2.value;
+
+            if(!/^(\+265|0)?[1-9]{1}[0-9]{7,8}$/.test(phoneNumber)) {
+                showError2("Invalid format.")
+                return false;
+            }
+            feedback2.textContent = "";
+            return true;
+        }
+
+        function showError2(message) {
+            feedback2.textContent = message;
+            feedback2.style.color = "red";
+        }
+
+
+        /* Form denial if not valid */
+        form.addEventListener("submit", function (e) {
+            if (!(validatePhoneNumber1() || validatePhoneNumber2())) {
+                e.preventDefault();
+            }
+        });
+    </script>
 
 </body>
 </html>
