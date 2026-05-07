@@ -148,10 +148,6 @@ $balances = [];
                     Generate Cashbook
                 </a>
 
-                <a href="cashbook.php?action=send" class="btn gold">
-                    Send to chairperson
-                </a>
-
                 <a href="new_transaction.php" class="btn green">
                     New Transaction
                 </a>

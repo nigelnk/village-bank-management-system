@@ -26,13 +26,6 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         </li>
 
         <li>
-            <a href="reports.php"
-                class="<?= ($currentPage == 'reports.php') ? 'active' : ''; ?>">
-                Reports
-            </a>
-        </li>
-
-        <li>
             <a href="../chairperson/member_approval.php"
                 class="<?= ($currentPage == 'member_approval.php') ? 'active' : ''; ?>">
                 Approve members

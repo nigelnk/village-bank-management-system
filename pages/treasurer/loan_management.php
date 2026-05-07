@@ -421,7 +421,8 @@ $members = $conn->query("SELECT * FROM members");
                     data: [
                         <?php echo $totalLoans; ?>,
                         <?php echo $totalCollected; ?>
-                    ]
+                    ],
+                     backgroundColor: ['#e4990e', '#0b3d2e']
 
                 }]
             },
