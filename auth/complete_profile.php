@@ -104,7 +104,7 @@ if (isset($_POST['save'])) {
                     <h4>Contact Details</h4>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="phonenumber">Phone Number</label>
+                            <label for="phonenumber">Phone Number (start with +265)</label>
                             <input id="phoneInput1" type="text" name="phonenumber" required>
                             <p id="feedback1"></p>
                         </div>
@@ -132,7 +132,7 @@ if (isset($_POST['save'])) {
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="pnumber">Phone Number</label>
+                            <label for="pnumber">Phone Number (start with +265)</label>
                             <input id="phoneInput2" type="text" name="pnumber" required>
                             <p id="feedback2"></p>
                         </div>

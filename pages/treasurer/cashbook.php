@@ -38,7 +38,7 @@ if ($result -> num_rows > 0 ){
  while($row = $result->fetch_assoc()){
   $name = $row['firstname'] . ' ' .$row['lastname'];
     // update running balance
-        if ($row['type'] == 'share' || ($row['type'] == 'loan' && $row['direction'] == 'IN')) {
+        if ($row['type'] == 'share' || ($row['type'] == 'loan')) {
             $balance += $row['amount'];
         } else {
             $balance -= $row['amount'];
